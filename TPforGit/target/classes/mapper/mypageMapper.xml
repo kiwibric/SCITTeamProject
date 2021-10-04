@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit.test43.dao.MyPageMapper">
+<!--선생님 마이페이지  -->
+<select id="newSugangList" parameterType="String" resultType="student">
+
+select 
+    s.st_id
+    ,s.st_gender
+    ,s.st_age
+    ,s.st_loc
+    ,s.st_avg
+    ,t.sg_num
+from
+    tpstudent s, tpsugang t
+where
+    s.st_id = t.sg_student
+and
+	 t.sg_accept = 0
+
+and 
+    t.sg_teacher = #{sg_teacher}
+</select>
+		
+<select id="acceptSugangList" parameterType="String" resultType="student">
+
+select 
+    s.st_id
+    ,s.st_gender
+    ,s.st_age
+    ,s.st_phone
+    ,s.st_loc
+    ,s.st_avg
+
+from
+    tpstudent s, tpsugang t
+where
+    s.st_id = t.sg_student
+and
+	 t.sg_accept = 1
+
+and 
+    t.sg_teacher = #{sg_teacher}
+</select>
+
+
+<select id="tc_starAvg" parameterType="String" resultType="int">
+select
+    tc_avg
+from
+    tpteacher
+where
+    tc_id = #{sg_teacher}
+	
+
+</select>
+
+<update id="acceptSugang" parameterType="int" >
+
+update 
+    tpsugang
+set
+    sg_accept= 1
+where
+    sg_num = #{sg_num}
+
+
+</update>
+
+
+<update id="refuseSugang" parameterType="int" >
+
+update 
+    tpsugang
+set
+    sg_accept= 2
+where
+    sg_num = #{sg_num}
+
+
+</update>
+
+<select id="selectTeacherInfo" parameterType="String" resultType="teacher">
+select
+	tc_id
+	,tc_intro
+	,tc_phone
+	,tc_teachlan
+	,tc_lan1
+	,tc_lan2
+	,tc_lan3
+	,tc_loc
+	,tc_price
+from 
+	tpteacher
+where
+	tc_id = #{tc_id}
+
+</select>
+
+<update id="updateMyInfo" parameterType="teacher">
+
+update
+    tpteacher
+set
+	tc_intro = #{tc_intro}
+	,tc_phone = #{tc_phone}
+	,tc_teachlan = #{tc_teachLan}
+	,tc_lan1 = #{tc_lan1}
+	,tc_loc = #{tc_loc}
+	,tc_price = #{tc_price} 
+where
+    tc_id =  #{tc_id}
+</update>
+
+
+<!-- 학생 마이페이지 -->
+
+<select id="applySugang" parameterType="String" resultType="teacher">
+
+select 
+    t.tc_id
+    ,t.tc_age
+    ,t.tc_teachlan
+    ,t.tc_loc
+    ,t.tc_avg
+    ,su.sg_num
+from
+    tpteacher t, tpsugang su
+where
+    t.tc_id = su.sg_teacher
+and
+    su.sg_accept = 0
+and
+    su.sg_student = #{sg_student}
+</select>
+		
+<select id="acceptedSugang" parameterType="String" resultType="teacher">
+
+select 
+    t.tc_id
+    ,t.tc_age
+    ,t.tc_teachlan
+    ,t.tc_loc
+    ,t.tc_avg
+    ,su.sg_num
+    ,t.tc_phone
+from
+    tpteacher t, tpsugang su
+where
+    t.tc_id = su.sg_teacher
+and
+    su.sg_accept = 1
+and
+    su.sg_student = #{sg_student}
+
+
+</select>
+
+
+<select id="sg_starAvg" parameterType="String" resultType="int">
+select
+    st_avg
+from
+    tpstudent
+where
+    st_id = #{sg_student}
+	
+
+</select>
+
+
+		
+<select id="refusedSugang" parameterType="String" resultType="teacher">
+
+select 
+    t.tc_id
+    ,t.tc_age
+    ,t.tc_teachlan
+    ,t.tc_loc
+    ,t.tc_avg
+    ,su.sg_num
+    ,t.tc_phone
+from
+    tpteacher t, tpsugang su
+where
+    t.tc_id = su.sg_teacher
+and
+    su.sg_accept = 2
+and
+    su.sg_student = #{sg_student}
+
+
+</select>
+
+<delete id="deleteSugang" parameterType="int">
+delete 
+    tpsugang
+where
+    sg_num = #{sg_num}
+
+
+</delete>
+<update id="updateStMyInfo" parameterType="student">
+
+update
+    tpstudent
+set
+	st_age = #{st_age}
+	,st_phone = #{st_phone}
+	,st_loc = #{st_loc}
+	,st_lan1 = #{st_lan1}
+	,st_lan2 = #{st_lan2}
+	,st_lan3 = #{st_lan3}
+ 
+where
+    st_id =  #{st_id}
+</update>
+
+<select id="selectStudentInfo" parameterType="String" resultType="student">
+select
+	st_id
+	,st_age 
+	,st_phone 
+	,st_loc 
+	,st_lan1 
+	,st_lan2 
+	,st_lan3
+from 
+	tpstudent
+where
+	st_id = #{st_id}
+
+</select>
+
+
+</mapper>
