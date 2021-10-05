@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit.test43.dao.ReviewMapper">
+<insert id="writeReview" parameterType="review">
+insert into tpReview(
+	rv_num
+	,rv_target
+	,rv_sender
+	,rv_star
+	,rv_review
+)values(
+	rv_num_seq.nextval
+	,#{rv_target}
+	,#{rv_sender}
+	,#{rv_star}
+	,#{rv_review}
+)
+</insert>
+
+<select id="selectTcReview" parameterType="String" resultType="review">
+select
+	rv_num
+	,rv_target
+	,rv_sender
+	,rv_star
+	,rv_review
+from
+	tpReview
+where
+	rv_target = #{tc_id}
+</select>
+
+<select id="selectMyReview" parameterType="String" resultType="review">
+select
+	rv_num
+	,rv_target
+	,rv_sender
+	,rv_star
+	,rv_review
+from
+	tpReview
+where
+	rv_sender = #{st_id}
+</select>
+
+<select id="selectReview" parameterType="int" resultType="review">
+select
+	rv_num
+	,rv_target
+	,rv_sender
+	,rv_star
+	,rv_review
+from
+	tpReview
+where
+	rv_num = #{rv_num}
+</select>
+
+<update id="updateReview" parameterType="review">
+update
+	tpReview
+set
+	rv_star = #{rv_star}
+	,rv_review = #{rv_review}
+where
+	rv_num = #{rv_num}
+</update>
+
+<delete id="deleteReview" parameterType="int">
+delete from
+	tpReview
+where
+	rv_num = #{rv_num}
+</delete>
+</mapper>

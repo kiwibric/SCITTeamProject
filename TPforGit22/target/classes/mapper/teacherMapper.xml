@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit.test43.dao.TeacherMapper">
+	<select id="list" resultType="teacher">
+		select
+		tc_id
+		,tc_gender
+		,tc_age
+		,tc_teachLan
+		,tc_lan1
+		,tc_lan2
+		,tc_lan3
+		,tc_loc
+		,tc_price
+		,tc_req
+		,tc_pic
+		,tc_avg
+		from
+		tpTeacher
+		order by
+		tc_avg desc
+	</select>
+	
+	<select id="infoWindow" parameterType="string" resultType="teacher">
+		select
+		tc_id
+		,tc_gender
+		,tc_age
+		,tc_teachLan
+		,tc_lan1
+		,tc_lan2
+		,tc_lan3
+		,tc_loc
+		,tc_price
+		,tc_req
+		,tc_pic
+		,tc_avg
+		,tc_intro
+		from
+		tpTeacher
+		where
+		tc_id = #{tc_id}
+	</select>
+
+		
+		
+</mapper>

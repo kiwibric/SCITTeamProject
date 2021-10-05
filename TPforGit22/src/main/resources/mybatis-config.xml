@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.scit.test43.vo.TeacherVO" alias="teacher" />
+		<typeAlias type="com.scit.test43.vo.SugangVO" alias="sugang" />
+		<typeAlias type="com.scit.test43.vo.StudentVO" alias="student" />
+		<typeAlias type="com.scit.test43.vo.ReviewVO" alias="review" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/teacherMapper.xml" />
+		<mapper resource="mapper/sugangMapper.xml" />
+		<mapper resource="mapper/mypageMapper.xml" />
+		<mapper resource="mapper/reviewMapper.xml" />
+	</mappers>
+</configuration>

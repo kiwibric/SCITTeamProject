@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit.test43.dao.SugangMapper">
+
+<insert id="insertSugangTable" parameterType="sugang">
+insert into tpSugang(
+	sg_num
+	,sg_teacher
+	,sg_student
+)values(
+	sg_num_seq.nextval
+	,#{sg_teacher}
+	,#{sg_student}
+	
+)
+
+</insert>
+
+
+<update id="updateTcReq" parameterType="sugang">
+
+update 
+    tpTeacher
+set 
+    tc_req = 1
+where
+    tc_id = #{sg_teacher}
+
+
+</update>
+		
+		
+</mapper>
