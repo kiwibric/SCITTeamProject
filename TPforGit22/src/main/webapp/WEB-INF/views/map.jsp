@@ -101,7 +101,7 @@
 
 		var html = "<table class='table table-striped table-hover'>";
 
-		html += "<tr><th>아이디</th><th>성별</th><th>나이</th><th>과목</th><th>지역</th><th>별점</th></tr>";
+		html += "<tr><th>ID</th><th>性別</th><th>年齢</th><th>科目</th><th>地域</th><th>評点</th></tr>";
 		$
 				.each(
 						data,
