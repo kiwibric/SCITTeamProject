@@ -70,12 +70,12 @@
 			<!-- 후기작성 버튼 (작성된 후기가 없을 경우) -->
 			<c:choose>
 				<c:when test="${ReviewCount == 0}">
-					<td><input type="button" value="후기작성" onclick = "location.href='writeForm?tc_id=${list1.tc_id}'"></td>
+					<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.tc_id}'"></td>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="list4" items="${selectMyReview }">
 						<c:if test="${list4.rv_target != list1.tc_id}">
-							<td><input type="button" value="후기작성" onclick = "location.href='writeForm?tc_id=${list1.tc_id}'"></td>
+							<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.tc_id}'"></td>
 						</c:if>
 					</c:forEach>
 				</c:otherwise>
@@ -117,6 +117,26 @@
 	</table>
 	
 	</div> 
+	
+	<!-- 내가 받은 후기 보기 -->
+	<div style="width: 40%;float: left;">
+	<h2>내가 받은 후기 목록</h2>
+	<table id="tb1">
+		<tr>
+			<th>no.</th>	
+			<th>별점</th>
+			<th>후기</th>
+		
+		</tr>
+		<c:forEach var="list3" items="${selectTrReview}" varStatus="status">
+			<tr>
+				<td>${status.count }</td>
+				<td>${list3.rv_star}</td>
+				<td>${list3.rv_review }</td>			
+			</tr>
+		</c:forEach> 
+	</table>
+	</div>
 	
 </body>
 </html>

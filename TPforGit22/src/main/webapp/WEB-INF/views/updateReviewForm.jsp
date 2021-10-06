@@ -43,7 +43,7 @@ $(function(){
 	<form action="updateReview" method="post" onsubmit="return formCheck();">
 		<table>
 			<tr>
-				<td>선생님</td>
+				<td>대상</td>
 				<td>${review.rv_target}</td>
 			</tr>
 			<tr>

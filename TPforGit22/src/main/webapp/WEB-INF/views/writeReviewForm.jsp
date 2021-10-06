@@ -25,8 +25,8 @@ function formCheck() {
 	<form action="writeReview" method="post" onsubmit="return formCheck();">
 		<table>
 			<tr>
-				<td>선생님</td>
-				<td><input type="hidden" name="rv_target" id="rv_target" value="${tc_id }">${tc_id }</td>
+				<td>대상</td>
+				<td><input type="hidden" name="rv_target" id="rv_target" value="${rv_target }">${rv_target }</td>
 			</tr>
 			<tr>
 				<td>별점</td>
@@ -44,7 +44,7 @@ function formCheck() {
 			</tr>
 			<tr>
 				<td><input type="submit" value="입력"></td>
-				<td><input type="button" value="취소" onclick="location.href='studentMypage'"></td>
+				<td><input type="button" value="취소" onclick="location.href='/'"></td>
 			</tr>
 		</table>
 	</form>

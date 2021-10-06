@@ -20,7 +20,7 @@ insert into tpReview(
 )
 </insert>
 
-<select id="selectTcReview" parameterType="String" resultType="review">
+<select id="selectTrReview" parameterType="String" resultType="review">
 select
 	rv_num
 	,rv_target
@@ -30,7 +30,7 @@ select
 from
 	tpReview
 where
-	rv_target = #{tc_id}
+	rv_target = #{rv_target}
 </select>
 
 <select id="selectMyReview" parameterType="String" resultType="review">
@@ -43,7 +43,7 @@ select
 from
 	tpReview
 where
-	rv_sender = #{st_id}
+	rv_sender = #{rv_sender}
 </select>
 
 <select id="selectReview" parameterType="int" resultType="review">
@@ -75,4 +75,31 @@ delete from
 where
 	rv_num = #{rv_num}
 </delete>
+
+<!-- 평균별점 업데이트 sql문 -->
+<update id="updateTcAvg">
+update
+    tpteacher
+set
+    tc_avg = (select
+                    round(avg(r.rv_star),1) as tc_avg
+                from
+                    tpreview r
+                    ,tpteacher t
+                where
+                    r.rv_target = t.tc_id)
+</update>
+<update id="updateStAvg">
+update
+    tpstudent
+set
+    st_avg = (select
+                	round(avg(r.rv_star),1) as st_avg
+	            from
+	                tpreview r
+	                ,tpstudent s
+	            where
+	                r.rv_target = s.st_id)
+</update>
+
 </mapper>

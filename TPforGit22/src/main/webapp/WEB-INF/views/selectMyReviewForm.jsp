@@ -13,7 +13,7 @@
 <table border=1 style="text-align:center;">
 		<tr>
 			<th>no.</th>
-			<th>선생님</th>
+			<th>대상</th>
 			<th>별점</th>
 			<th>후기</th>
 			<th>수정</th>

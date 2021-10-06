@@ -7,9 +7,12 @@
 <title>Insert</title>
 </head>
 <body>
-	<div>
-	<h1>"mosi(로그인 정보)"님의 별점은 ${tc_starAvg}입니다</h1>
+	<div><a href="/">홈으로</a></div> 
+	<div><h1>"mosi(로그인 정보)"님의 별점은 ${tc_starAvg}입니다</h1>
 	<a href="updateMyInfoForm">내 정보 수정</a>
+	<!-- 후기관리 버튼 -->
+	<a href="selectMyReviewForm">후기 관리</a>
+	
 	</div>
 	<div style="width: 40%;float: left;">
 	<h2>새로 받은 신청 목록</h2>
@@ -63,7 +66,22 @@
 			<td>${list1.st_loc}</td>
 			<td>${list1.st_avg}</td>
 			<td>${list1.st_phone}</td>
-		
+			
+			
+			<!-- 후기작성 버튼 (작성된 후기가 없을 경우) -->
+			<c:choose>
+				<c:when test="${ReviewCount == 0}">
+					<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.st_id}'"></td>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="list4" items="${selectMyReview }">
+						<c:if test="${list4.rv_target != list1.st_id}">
+							<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.st_id}'"></td>
+						</c:if>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			
 		</tr>
 		
 		
@@ -73,6 +91,25 @@
 	
 	</div>
 	
+	<!-- 내가 받은 후기 보기 -->
+	<div style="width: 40%;float: left;">
+	<h2>내가 받은 후기 목록</h2>
+	<table id="tb1">
+		<tr>
+			<th>no.</th>	
+			<th>별점</th>
+			<th>후기</th>
+		
+		</tr>
+		<c:forEach var="list3" items="${selectTrReview}" varStatus="status">
+			<tr>
+				<td>${status.count }</td>
+				<td>${list3.rv_star}</td>
+				<td>${list3.rv_review }</td>			
+			</tr>
+		</c:forEach> 
+	</table>
+	</div>
 	
 </body>
 </html>
