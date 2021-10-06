@@ -136,11 +136,11 @@
 													//프사는 마커이미지로
 													var iwContent = '<div style="width:150px;text-align:center;padding:6px 0;">ID : '
 															+ value.tc_id
-															+ '<br>언어 : '
+															+ '<br>言語 : '
 															+ value.tc_teachLan
-															+ '<br>시급 : '
+															+ '<br>時給 : '
 															+ value.tc_price
-															+ '<br>평점 : '
+															+ '<br>評点 : '
 															+ value.tc_avg
 															+ '</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 
@@ -291,25 +291,25 @@ th, td {
 				<tr>
 					<td><select class="form-select form-select-lg mb-3"
 						name="genderSel" id="genderSel" style="width: 100px;">
-							<option value="">성별전체</option>
-							<option value="male">남성</option>
-							<option value="female">여성</option>
+							<option value="">性別全体</option>
+							<option value="male">男性</option>
+							<option value="female">女性</option>
 					</select></td>
 					<td><select class="form-select form-select-lg mb-3"
 						name="ageSel" id="ageSel" style="width: 100px;">
-							<option value="">연령전체</option>
-							<option value="gen1">20대미만</option>
-							<option value="gen2">20대</option>
-							<option value="gen3">30대</option>
-							<option value="gen4">40대</option>
-							<option value="gen5">50대</option>
-							<option value="gen6">60대 이상</option>
+							<option value="">年齢全体</option>
+							<option value="gen1">20代未満</option>
+							<option value="gen2">20代</option>
+							<option value="gen3">30代</option>
+							<option value="gen4">40代</option>
+							<option value="gen5">50代</option>
+							<option value="gen6">60代以上</option>
 					</select></td><td></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="text" class="form-control form-control-lg"
-						id="lanSel" placeholder="언어" style="width: 198px;"></td>
-					<td><input type="button" id="searchLan" value="검색"
+						id="lanSel" placeholder="言語" style="width: 198px;"></td>
+					<td><input type="button" id="searchLan" value="Search"
 						class="btn btn-outline-dark btn btn-secondary btn-lg"
 						onclick="filter();"></td>
 				</tr>
