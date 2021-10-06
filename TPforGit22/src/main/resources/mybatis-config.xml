@@ -14,5 +14,6 @@
 		<mapper resource="mapper/sugangMapper.xml" />
 		<mapper resource="mapper/mypageMapper.xml" />
 		<mapper resource="mapper/reviewMapper.xml" />
+		<mapper resource="mapper/JoinLoginMapper.xml" />
 	</mappers>
 </configuration>

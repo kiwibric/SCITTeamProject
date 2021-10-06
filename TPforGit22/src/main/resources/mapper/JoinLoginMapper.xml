@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit.test43.dao.JoinLoginMapper">
+	<insert id="JoinStudent" parameterType="Student">
+		insert into
+		Student(
+		st_id
+		,st_pw
+		,st_nm
+		,st_gender
+		)
+		values(
+		#{st_id}
+		,#{st_pw}
+		,#{st_nm}
+		,#{member_gender}
+		)
+	</insert>
+	<insert id="JoinTeacher" parameterType="Teacher">
+		insert into
+		Teacher(
+		tc_id
+		,tc_pw
+		,tc_nm
+		,tc_gender
+		)
+		values(
+		#{tc_id}
+		,#{tc_pw}
+		,#{tc_nm}
+		,#{member_gender}
+		)
+	</insert>
+	<select id="searchStudent" parameterType="string"
+		resultType="Student">
+		select
+		st_id
+		,st_pw
+		from
+		tpStudent
+		where
+		st_id = #{st_id}
+	</select>
+	<select id="serchTeacher" parameterType="string"
+		resultType="Teacher">
+		select
+		tc_id
+		,tc_pw
+		from
+		tpTeacher
+		where
+		tc_id = #{tc_id}
+	</select>
+
+</mapper>

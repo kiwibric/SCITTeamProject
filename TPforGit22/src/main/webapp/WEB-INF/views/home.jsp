@@ -13,29 +13,25 @@
 	<c:choose>
 		<c:when test = "${empty sessionScope.loginId }">
 		<li>
-	<a href = "/login/joinmember">회원가입하기</a>
+	<a href = "Login/JoinStudent">학생 회원가입하기</a>
 	</li>
 	<li>
-	<a href = "/login/LoginMember">로그인하기</a>
+	<a href = "Login/JoinTeacher">강사 회원가입하기</a>
+	</li>
+	<li>
+	<a href = "Login/loginForm">로그인하기</a>
 	</li>
 	</c:when>
 		<c:otherwise>
 		<li>
-			<a href = "/login/logout">로그아웃</a>
+			<a href = "Login/logout">로그아웃</a>
 		</li>
 		</c:otherwise>
-
-	</c:choose>		
+	</c:choose>
 	<li>
-		<a href = ""> 로그아웃 </a>
-	</li>
-
-
-
+	<a href = "map">map</a>
+	</li>		
 </ul>
-<ul>
-		<li><a href="/map">map</a></li>
-	</ul>
 </body>
 </html>
 	
