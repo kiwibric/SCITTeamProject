@@ -136,7 +136,7 @@
 													//프사는 마커이미지로
 													var iwContent = '<div style="width:150px;text-align:center;padding:6px 0;">ID : '
 															+ value.tc_id
-															+ '<br>言語 : '
+															+ '<br>科目 : '
 															+ value.tc_teachLan
 															+ '<br>時給 : '
 															+ value.tc_price

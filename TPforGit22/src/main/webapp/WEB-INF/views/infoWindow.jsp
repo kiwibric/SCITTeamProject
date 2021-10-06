@@ -82,7 +82,7 @@ table {
 </head>
 <body>
 	<table width="500px" border="1" style="">
-		<tr><td rowspan="7"><img src="resources/image/${tc.tc_pic}"></td><td>아이디</td><td>${tc.tc_id}</td></tr>
+		<tr><td rowspan="7"><img src="resources/image/${tc.tc_pic}"></td><td>ID</td><td>${tc.tc_id}</td></tr>
 		<tr><td>性別</td><td>${tc.tc_gender}</td></tr>
 		<tr><td>地域</td><td>${tc.tc_loc}</td></tr>
 		<tr><td>評点</td><td>${tc.tc_avg}</td></tr>
@@ -96,7 +96,7 @@ table {
 	
 	<!-- 선생님 후기 목록 -->
 	<table width="500px" style=" border: 1px solid; border-collapse: collapse;">
-		<tr><th width="50px">no.</th><th width="100px">評価</th><th width="350px">후기</th></tr>
+		<tr><th width="50px">no.</th><th width="100px">評価</th><th width="350px">レビュー</th></tr>
 		<c:forEach var="list" items="${selectTcReview}" varStatus="status">
 			<tr>
 				<td>${status.count }</td>
