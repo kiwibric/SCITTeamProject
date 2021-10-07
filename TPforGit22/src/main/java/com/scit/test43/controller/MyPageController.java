@@ -32,6 +32,10 @@ public class MyPageController {
 	//후에 http에서 로그인 정보 받아올 예정
 	String sg_teacher = "mosi";
 	
+	//선생님의 사진
+	String tc_pic = dao.selectTeacherInfo(sg_teacher).getTc_pic();
+	model.addAttribute("tc_pic", tc_pic);
+	
 	//선생님의 별점
 	int tc_starAvg = dao.tc_starAvg(sg_teacher);
 	model.addAttribute("tc_starAvg", tc_starAvg);

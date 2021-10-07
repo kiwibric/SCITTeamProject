@@ -61,6 +61,10 @@ div img{
 	margin-right : 5px;
 }
 </style>
+<script type="text/javascript">
+console.log(${tc_pic});
+console.log(${tc_starAvg});
+</script>
 </head>
 <body>
 <div id="header">
@@ -69,7 +73,7 @@ div img{
 </div>
 <div id="container">
  	<div id="profile">
- 		<img style="float: left; width: 100px; height: 100px; padding: 10px;" class="left-img" src="${tc_pic}"><br>
+ 		<img src="${tc_pic}" style="float: left; width: 100px; height: 100px; padding: 10px;" class="left-img"><br>
  		<span style="font-size: 50px; line-height: 15px;">mosi</span>
  			<button type="button" onclick="" class="btn btn-secondary btn-sm" style="margin-left: 10px; margin-bottom: 15px;">로그아웃</button>
  			<button type="button" onclick="" class="btn btn-secondary btn-sm" style="margin-bottom: 15px;">회원탈퇴</button>

@@ -94,6 +94,7 @@ select
 	,tc_lan3
 	,tc_loc
 	,tc_price
+	,tc_pic
 from 
 	tpteacher
 where
