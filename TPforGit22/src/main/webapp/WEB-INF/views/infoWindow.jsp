@@ -86,7 +86,7 @@ table {
 </head>
 <body>
 	<table width="500px" border="1" style="">
-		<tr><td rowspan="7"><img src="resources/image/${tc.tc_pic}"></td><td>ID</td><td>${tc.tc_id}</td></tr>
+		<tr><td rowspan="7"><img src="${tc.tc_pic}" width="60px"></td><td>ID</td><td>${tc.tc_id}</td></tr>
 		<tr><td>性別</td><td>${tc.tc_gender}</td></tr>
 		<tr><td>地域</td><td>${tc.tc_loc}</td></tr>
 		<tr><td>評点</td><td>${tc.tc_avg}</td></tr>
