@@ -5,26 +5,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <style type="text/css">
-div{
-	border: 1px solid #ccc;
-}
 #container {
 	width: 960px;
 	padding : 20px;
 	margin : 0 auto;
 }
-#profile{
-	width: 420px;
-	padding: 20px;
-	float: left;
+#header{
+	background: #435D7D;
+	padding: 0px;
+	height: 60px;
 	margin-bottom: 20px;
 }
-#sideProfile{
-	width: 120px;
+#homeBtn{
+	padding: 0;
+	border: none;
+	background: none;
+}
+#profile{
+	width: 500px;
+	height: 100px;
 	padding: 20px;
 	float: left;
 	margin-bottom: 20px;
+	display: table-cell;
+    vertical-align: middle;
 }
 #sidebar {
 	width: 220px;
@@ -46,36 +52,44 @@ div{
 	width: 30px;
 	height: 30px;
 }
+table{
+	heigt: 100px;
+	text-align: center;
+	margin-left: 25px;
+}
+div img{
+	margin-right : 5px;
+}
 </style>
 </head>
 <body>
+<div id="header">
+	<button id="homeBtn" type="button" onclick="location.href='/'"><img src="resources/images/logo.png"></button>
+	<span style="float:right; color:white; font-size: 50px" >STUDENT MYPAGE</span>
+</div>
 <div id="container">
-	<div id="header">
-	<button type="button" onclick="location.href='/'">홈버튼로고</button><span style="float:right;">MY</span>
-	</div>
-	
  	<div id="profile">
- 		<img style="float: left; width: 80px; height: 80px; padding: 10px;" class="left-img" src="/resources/image/student.png">
- 		<h3>학생</h3>
- 		<h1>momo</h1>
- 		<h3>momo님의 별점은 ${st_starAvg}입니다</h3>
+ 		<img style="float: left; width: 100px; height: 100px; padding: 10px;" class="left-img" src="/resources/images/student.png"><br>
+ 		<span style="font-size: 50px; line-height: 15px;">momo</span>
+ 			<button type="button" onclick="" class="btn btn-secondary btn-sm" style="margin-left: 10px; margin-bottom: 15px;">로그아웃</button>
+ 			<button type="button" onclick="" class="btn btn-secondary btn-sm" style="margin-bottom: 15px;">회원탈퇴</button>
+ 		<h4 style="margin-left: 17px;">momo님의 별점은 ${st_starAvg}입니다</h4>
  	</div>
- 	<div id="sideProfile"><button type="button" onclick="">로그아웃</button><button type="button" onclick="">회원탈퇴</button></div>
  	<div id="sidebar">
- 		<button onclick="location.href='updateStMyInfoForm'">정보 수정</button><br>
+ 		<button onclick="location.href='updateStMyInfoForm'" class="btn btn-secondary btn-lg" style="margin-bottom: 5px">정보 수정</button><br>
 		<!-- 후기관리 버튼 -->
-		<button onclick="location.href='selectMyReviewForm'">후기 관리</button>
+		<button onclick="location.href='selectMyReviewForm'" class="btn btn-secondary btn-lg">후기 관리</button>
  	</div>
 	
-	<div id="information"">
+	<div id="information">
 		<div class="hh-line"></div>
-		<h1 style="color: navy;">MY PAGE</h1>
+		<h1 style="color: #435D7D;">MY PAGE</h1><br>
 		<div>
 		
-		<img id ="ticon" src="resources/image/chat.png" align="middle">신청한 강의 목록</img>
+		<img id ="ticon" src="resources/images/chat.png" align="middle">신청한 강의 목록</img>
 		<table id="tb1">
 			<tr>
-				<th>선생님 ID</th>
+				<th>선생님ID</th>
 				<th>나이</th>
 				<th>강의 언어</th>	
 				<th>지역</th>
@@ -94,13 +108,13 @@ div{
 			</tr>
 			</c:forEach> 
 		</table>
-		</div>
+		</div><br><br>
 		
 		<div>
-		<img id ="ticon" src="resources/image/chat.png" align="middle">수락된 강의 목록</img>
+		<img id ="ticon" src="resources/images/chat.png" align="middle">수락된 강의 목록</img>
 		<table id="tb2">
 			<tr>
-				<th>선생님 ID</th>
+				<th>선생님ID</th>
 				<th>나이</th>
 				<th>강의 언어</th>
 				<th>지역</th>
@@ -133,13 +147,13 @@ div{
 			</c:forEach> 
 			
 		</table>
-		</div>
+		</div><br><br>
 		
 		<div>
-		<img id ="ticon" src="resources/image/chat.png" align="middle">거절된 강의 목록</img>
+		<img id ="ticon" src="resources/images/chat.png" align="middle">거절된 강의 목록</img>
 		<table id="tb2">
 			<tr>
-				<th>선생님 ID</th>
+				<th>선생님ID</th>
 				<th>나이</th>
 				<th>강의 언어</th>
 				<th>지역</th>
@@ -160,17 +174,16 @@ div{
 		
 			</c:forEach> 
 		</table>
-		</div> 
+		</div> <br><br>
 	
 		<!-- 내가 받은 후기 보기 -->
 		<div>
-		<img id ="ticon" src="resources/image/pencil.png" align="middle">내가 받은 후기 목록</img>
+		<img id ="ticon" src="resources/images/pencil.png" align="middle">내가 받은 후기 목록</img>
 		<table id="tb1">
 			<tr>
 				<th>no.</th>	
 				<th>별점</th>
 				<th>후기</th>
-			
 			</tr>
 			<c:forEach var="list3" items="${selectTrReview}" varStatus="status">
 				<tr>
@@ -180,7 +193,7 @@ div{
 				</tr>
 			</c:forEach> 
 		</table>
-		</div>
+		</div><br><br>
 	</div>
 </div>
 </body>
