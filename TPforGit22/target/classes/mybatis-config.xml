@@ -8,6 +8,8 @@
 		<typeAlias type="com.scit.test43.vo.SugangVO" alias="sugang" />
 		<typeAlias type="com.scit.test43.vo.StudentVO" alias="student" />
 		<typeAlias type="com.scit.test43.vo.ReviewVO" alias="review" />
+		<typeAlias type="com.scit.test43.vo.CommentVO" alias="comment" />
+		<typeAlias type="com.scit.test43.vo.CommentReplyVO" alias="reply" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/teacherMapper.xml" />
@@ -15,5 +17,6 @@
 		<mapper resource="mapper/mypageMapper.xml" />
 		<mapper resource="mapper/reviewMapper.xml" />
 		<mapper resource="mapper/JoinLoginMapper.xml" />
+		<mapper resource="mapper/commentMapper.xml" />
 	</mappers>
 </configuration>

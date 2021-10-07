@@ -41,7 +41,11 @@ $(function(){
 			
 		})
 		
-	})
+	});
+	
+	$("#boardList").click(function(){
+		location.href = "/board/list?target=" + $(this).attr("tc_id");
+ 	});
 })
 
 
@@ -91,7 +95,12 @@ table {
 		<tr><td>できる言語</td><td>${tc.tc_lan1}</td></tr>
 		<tr><td colspan="3">${tc.tc_intro}</td></tr>
 		<tr><td><input type="hidden" id="tc_id" value="${tc.tc_id}"></td></tr>
-		<tr><td colspan="3"><input type="button" id ="contact" value="受講申請"></td></tr>
+		<tr>
+			<td colspan="3">
+				<input type="button" id ="contact" value="受講申請">
+				<button type="button" id="boardList" tc_id="${tc.tc_id }">お問い合わせ</button>
+			</td>
+		</tr>
 	</table>
 	
 	<!-- 선생님 후기 목록 -->
