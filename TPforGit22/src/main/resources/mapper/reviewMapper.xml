@@ -35,15 +35,18 @@ where
 
 <select id="selectMyReview" parameterType="String" resultType="review">
 select
-	rv_num
-	,rv_target
-	,rv_sender
-	,rv_star
-	,rv_review
+	r.rv_num
+	,r.rv_target
+	,r.rv_sender
+	,r.rv_star
+	,r.rv_review
+    ,t.tc_pic
 from
-	tpReview
+	tpReview r ,  tpteacher t
 where
-	rv_sender = #{rv_sender}
+	rv_sender = #{rc_sender}
+and 
+    r.rv_target = t.tc_id
 </select>
 
 <select id="selectReview" parameterType="int" resultType="review">

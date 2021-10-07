@@ -9,4 +9,5 @@ public class ReviewVO {
 	private String rv_sender;
 	private int rv_star;
 	private String rv_review;
+	private String tc_pic;
 }
