@@ -6,7 +6,7 @@ import lombok.Data;
 public class StudentVO {
 	private int st_num;
 	private String st_id;
-	private int st_pw;
+	private String st_pw;
 	private String st_gender;
 	private int st_age;
 	private String st_phone;

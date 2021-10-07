@@ -1,6 +1,6 @@
 package com.scit.test43.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; 
 
 
 import org.springframework.stereotype.Controller;
@@ -16,36 +16,19 @@ public class JoinLoginController {
 	
 	@Autowired
 	private JoinLoginService service;
-	
-	@RequestMapping(value = "/Login/JoinStudent" , method = RequestMethod.GET)
-	public String joinStudent() {
-		return "Login/JoinStudent";
-	}
-	@RequestMapping(value = "/Login/joinStudent" , method = RequestMethod.POST)
-	public String join(StudentVO student) {
-		return service.JoinStudent(student);
-	}
-	@RequestMapping(value = "/Login/JoinTeacher" , method = RequestMethod.GET)
-	public String joinTeacher() {
-		return "Login/JoinTeacher";
-	}
-	@RequestMapping(value = "/Login/join2" , method = RequestMethod.POST)
-	public String join(TeacherVO teacher) {
-		return service.JoinTeacher(teacher);
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(TeacherVO account) {
+		return service.login(account);
 	}
 
-	@RequestMapping(value = "/Login/loginForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
 	public String loginForm() {
-		return "Login/loginForm";
+		return "/loginForm";
 	}
 
-	@RequestMapping(value = "/Login/login", method = RequestMethod.POST)
-	public String login(StudentVO student) {
-		return service.login(student);
-	}
 	
-	@RequestMapping(value = "/Login/logout", method = RequestMethod.GET)
-	public String logout() {
-		return service.logout();
-	}
+//	@RequestMapping(value = "/Login/logout", method = RequestMethod.GET)
+//	public String logout() {
+//		return service.logout();
+//	}
 }

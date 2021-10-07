@@ -15,69 +15,56 @@ import com.scit.test43.vo.TeacherVO;
 public class JoinLoginService {
 	@Autowired
 	private JoinLoginDAO dao;
+	
 	@Autowired
 	private HttpSession session;
 
-	public String login(StudentVO student) {
+	public String login(TeacherVO account) {
 		String path = "";
-
-		StudentVO searchData = dao.searchStudent(student.getSt_id());
-		if (searchData == null) {
-			System.out.println("id가 없는 상황");
-			path = "redirect:/Login/loginForm";
-		} else {
-			if (student.getSt_id().equals(searchData.getSt_id())) {
-				session.setAttribute("loginId", searchData.getSt_id());
+		TeacherVO tsData = null;
+		StudentVO ssData = null;
+		
+		System.out.println(account.getTc_pw());
+		try {
+			tsData = dao.searchTeacher(account.getTc_id());
+			System.out.println(tsData);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		try {
+			ssData = dao.searchStudent(account.getTc_id());
+			System.out.println(ssData);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
+		
+		if(tsData != null) {
+			if (account.getTc_pw().equals(tsData.getTc_pw())) {
+				session.setAttribute("loginId", tsData.getTc_id());
 				path = "redirect:/";
 			} else {
 				System.out.println("비밀번호가 틀린 상황");
-				path = "redirect:/Login/loginForm";
+				path = "redirect:/loginForm";
 			}
+		} else if(ssData != null) {
+			System.out.println(account.getTc_pw());
+			if (account.getTc_pw().equals(ssData.getSt_pw())) {
+				session.setAttribute("loginId", ssData.getSt_id());
+				path = "redirect:/";
+			} else {
+				System.out.println("비밀번호가 틀린 상황");
+				path = "redirect:/loginForm";
+			}
+		} else {
+			System.out.println("id가 없는 상황");
+			path = "redirect:/loginForm";
 		}
 		return path;
 	}
-	
-	public String teacherLogin(TeacherVO teacher) {
-		String path = "";
-		String tc_id = teacher.getTc_id();
-		TeacherVO searchTeacherData = dao.searchTeacher(tc_id);
-		if(searchTeacherData == null) {
-			System.out.println("id가 없는 상황");
-			path = "redirect:/Login/loginForm";
-		}else {
-			if(teacher.getTc_id().equals(searchTeacherData.getTc_id())){
-				session.setAttribute("loginId", searchTeacherData.getTc_id());
-				path = "redirect:/";
-			}else {
-				System.out.println("비밀번호가 틀린 상황");
-				path = "redirect:/Login/loginForm";
-			}
-		}return path;
-	}
 
-	public String logout() {
-		session.removeAttribute("loginId");
-		session.removeAttribute("loginNm");
-		return "redirect:/";
-	}
-	
-	public String JoinStudent(StudentVO student) {
-		String path = "";
-		int cnt = dao.JoinStudent(student);
-		if(cnt > 0) {
-			path = "redirect:/";
-		}else {
-			path = "redirect:/Login/JoinStudent";
-		}return path;
-	}
-	public String JoinTeacher(TeacherVO teacher){
-		String path = "";
-		int cnt = dao.JoinTeacher(teacher);
-		if(cnt > 0) {
-			path = "redirect:/";
-		}else {
-			path = "redirect:/JoinTeacher";
-		}
-	return path;
-	}
+//	public String logout() {
+//		session.removeAttribute("loginId");
+//		session.removeAttribute("loginNm");
+//		return "redirect:/";
+//	}
 }

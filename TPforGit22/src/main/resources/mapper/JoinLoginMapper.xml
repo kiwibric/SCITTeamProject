@@ -4,51 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.scit.test43.dao.JoinLoginMapper">
-	<insert id="JoinStudent" parameterType="Student">
-		insert into
-		Student(
-		st_id
-		,st_pw
-		,st_nm
-		,st_gender
-		)
-		values(
-		#{st_id}
-		,#{st_pw}
-		,#{st_nm}
-		,#{member_gender}
-		)
-	</insert>
-	<insert id="JoinTeacher" parameterType="Teacher">
-		insert into
-		Teacher(
-		tc_id
-		,tc_pw
-		,tc_nm
-		,tc_gender
-		)
-		values(
-		#{tc_id}
-		,#{tc_pw}
-		,#{tc_nm}
-		,#{member_gender}
-		)
-	</insert>
 	<select id="searchStudent" parameterType="string"
-		resultType="Student">
+		resultType="student">
 		select
 		st_id
 		,st_pw
+		,st_gender
+		,st_age
+		,st_phone
+		,st_loc
+		,st_lan1
+		,st_lan2
+		,st_lan3
+		,st_avg
 		from
 		tpStudent
 		where
 		st_id = #{st_id}
 	</select>
-	<select id="serchTeacher" parameterType="string"
-		resultType="Teacher">
+	<select id="searchTeacher" parameterType="string" resultType="teacher">
 		select
 		tc_id
 		,tc_pw
+		,tc_gender
+		,tc_teachLan
+		,tc_lan1
+		,tc_lan2
+		,tc_lan3
+		,tc_phone
+		,tc_loc
+		,tc_pic
+		,tc_intro
+		,tc_price
+		,tc_req
+		,tc_avg
 		from
 		tpTeacher
 		where

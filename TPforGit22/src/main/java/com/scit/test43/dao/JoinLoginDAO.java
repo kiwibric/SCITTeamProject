@@ -10,27 +10,6 @@ import com.scit.test43.vo.TeacherVO;
 public class JoinLoginDAO {
 	@Autowired
 	private SqlSession session;
-
-	public int JoinStudent(StudentVO student) {
-		int cnt = 0;
-		try {
-			JoinLoginMapper mapper = session.getMapper(JoinLoginMapper.class);
-			cnt = mapper.JoinStudent(student);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return cnt;
-	}
-	public int JoinTeacher(TeacherVO teacher) {
-		int cnt = 0;
-		try {
-			JoinLoginMapper mapper = session.getMapper(JoinLoginMapper.class);
-			cnt = mapper.JoinTeacher(teacher);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return cnt;
-	}
 	public StudentVO searchStudent(String st_id) {
 		StudentVO student = null;
 		try {
@@ -43,6 +22,7 @@ public class JoinLoginDAO {
 	}
 	public TeacherVO searchTeacher(String tc_id) {
 		TeacherVO teacher = null;
+		System.out.println(tc_id);
 		try {
 			JoinLoginMapper mapper = session.getMapper(JoinLoginMapper.class);	
 			teacher = mapper.searchTeacher(tc_id);
