@@ -62,8 +62,6 @@ div img{
 }
 </style>
 <script type="text/javascript">
-console.log(${tc_pic});
-console.log(${tc_starAvg});
 </script>
 </head>
 <body>
