@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scit.test43.dao.CommentMapper">
+
+<!-- 계시글 -->
+
+<select id="commentList" parameterType="string" resultType="comment">
+	select
+		cmt_id
+		,subject
+		,content
+		,writer
+		,target
+		,to_char(indate, 'YYYY-MM-DD HH24:Mi:SS') as indate
+	from
+		cmt
+	<if test="searchText != null">
+	where
+		subject like '%' || #{searchText} || '%'
+	</if>
+	<if test="target != null">
+	and
+		target = #{target}
+	</if>
+	order by
+		cmt_id asc
+</select>
+
+<select id="selectContentCnt" parameterType="string" resultType="int">
+	select
+		count(*)
+	from
+		cmt
+	<if test="_parameter != null">
+	where
+		target = #{target}
+	</if>
+</select>
+
+<select id="getContentView" resultType="comment" parameterType="int">
+	select
+		cmt_id
+		,subject
+		,content
+		,writer
+		,target
+		,to_char(indate, 'YYYY-MM-DD HH24:Mi:SS') as indate
+	from
+		cmt       
+	where
+		cmt_id = #{cmt_id}
+</select>
+
+<update id="updateHits" parameterType="int">
+	update
+		cmt
+	set
+		hits = hits + 1
+	where
+		cmt_id = #{cmt_id}
+</update>
+
+<insert id ="insertContent" parameterType="comment">
+	insert into cmt(
+            cmt_id
+            ,subject
+            ,content
+            ,password
+            ,writer
+            ,target
+        ) values (
+            cmt_seq.nextval
+            ,#{subject}
+            ,#{content}
+            ,#{password}
+            ,#{writer}
+            ,#{target}
+        )
+</insert>
+
+<update id="updateContent" parameterType="comment">
+	update
+		cmt
+	set
+		subject = #{subject},
+		,content = #{content}
+		,password = #{password}
+		,writer = #{writer}
+	where
+		cmt_id = #{cmt_id}
+</update>
+
+<delete id="deleteComment" parameterType="comment">
+	delete from
+		cmt
+	where
+		cmt_id = #{cmt_id}
+	and
+		password = #{password}
+</delete>
+
+<select id="getCommentCnt" resultType="int" parameterType="java.util.HashMap">
+	select
+    	count(cmt_id)
+	from
+    	cmt
+	where
+    	cmt_id = #{cmt_id}
+	and 
+		password = #{password}
+</select>
+
+
+<!-- 댓글 -->
+
+<insert id="regReply" parameterType="reply">
+	<selectKey keyProperty="reply_id" resultType="int" order="BEFORE">
+		select 
+			cmt_reply_seq.nextval
+		from
+			dual
+	</selectKey>
+	insert into comment_reply(
+		reply_id
+		,cmt_id
+		,parent_id
+		,depth
+		,reply_content
+		,reply_writer
+		,reply_password
+	) values (
+		#{reply_id}
+		,#{cmt_id}
+		,#{parent_id}
+		,#{depth}
+		,#{reply_content}
+		,#{reply_writer}
+		,#{reply_password}
+	)
+
+</insert>
+
+<select id="getReplyList" resultType="reply" parameterType="reply">
+	select
+		reply_id
+		,cmt_id
+		,parent_id
+		,depth
+		,reply_content
+		,reply_writer
+		,reply_password
+	from
+		cmt_reply
+	where
+		cmt_id = #{cmt_id}
+	order by
+		reply_id asc
+</select>
+
+
+<delete id="deleteCommentReplyAll" parameterType="reply">
+	delete
+	from
+		cmt_reply
+	where
+		reply_id in (
+			select
+				reply_id
+			from
+				cmt_reply
+			where
+				reply_id = #{reply_id}
+				and reply_password = #{reply_password}
+		) or parent_id in (
+			select
+				reply_id
+			from
+				cmt_reply
+			where
+				reply_id = #{reply_id}
+				and reply_password = #{reply_password}
+		)
+</delete>
+
+<delete id="deleteCommentReply" parameterType="reply">
+	delete
+	from
+		cmt_reply
+	where
+		reply_id = #{reply_id}
+	and 
+		reply_passwordd = #{reply_passwordd}
+</delete>
+
+<select id="checkReply" resultType="int" parameterType="reply">
+	select
+		count(*)
+	from
+		cmt_reply
+	where
+		reply_id = #{reply_id}
+		and reply_password = #{reply_password}
+</select>
+
+
+<update id="updateReply" parameterType="reply">
+	update
+		comment_reply
+	set
+		parent_id = #{parent_id},
+		depth = #{depth},
+		reply_content = #{reply_content},
+		reply_writer = #{reply_writer},
+		reply_password = #{reply_password}
+	where
+		reply_id = #{reply_id}
+</update>
+
+</mapper>
