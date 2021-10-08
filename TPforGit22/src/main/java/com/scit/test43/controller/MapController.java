@@ -1,6 +1,8 @@
 package com.scit.test43.controller;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.scit.test43.dao.ReviewDAO;
 import com.scit.test43.dao.TeacherDAO;
 import com.scit.test43.vo.ReviewVO;
+import com.scit.test43.vo.StudentVO;
 import com.scit.test43.vo.TeacherVO;
 
 @Controller
@@ -23,12 +26,16 @@ public class MapController {
 	//ReviewDAO
 	@Autowired
 	ReviewDAO rdao;
-	
+	@Autowired
+	private HttpSession session;
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
-	public String map() {
+	public String map(String st_id, Model model) {
+		StudentVO student = dao.searchStudentOne(st_id);
+		model = model.addAttribute("student", student);
 		return "map";
 	
 	}
+	
 	
 	
 	
@@ -39,13 +46,17 @@ public class MapController {
 		return list;
 	}
 	@RequestMapping(value = "/infoWindow", method = RequestMethod.GET)
-	public String infoWindow(String teacherId, Model model) {
-		TeacherVO tc = dao.infoWindow(teacherId);
+	public String infoWindow(String id, Model model) {
+		String[] idArray = id.split(" ");
+		
+		TeacherVO tc = dao.infoWindow(idArray[0]);
 		model.addAttribute("tc", tc);
 		
 		//선생님 후기
-		ArrayList<ReviewVO> selectTcReview = rdao.selectTrReview(teacherId);
+		ArrayList<ReviewVO> selectTcReview = rdao.selectTrReview(id);
 		model.addAttribute("selectTcReview", selectTcReview);
+		
+		session.setAttribute("st_id", idArray[1]);
 		
 		return "infoWindow";
 	}

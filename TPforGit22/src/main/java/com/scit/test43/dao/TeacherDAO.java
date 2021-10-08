@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.scit.test43.dao.TeacherMapper;
+import com.scit.test43.vo.StudentVO;
 import com.scit.test43.vo.TeacherVO;
 
 
@@ -27,6 +28,12 @@ public class TeacherDAO {
 		TeacherMapper mapper = session.getMapper(TeacherMapper.class);
 		TeacherVO tc = mapper.infoWindow(teacherId);
 		return tc;
+	}
+
+	public StudentVO searchStudentOne(String st_id) {
+		JoinLoginMapper mapper = session.getMapper(JoinLoginMapper.class);
+		StudentVO student = mapper.searchStudent(st_id);
+		return student;
 	}
 
 	

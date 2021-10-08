@@ -6,20 +6,21 @@
 <title>[메인화면]</title>
 </head>
 <body>
-	<c:if test="${not empty sessionScope.loginId}">
-		<h1>${sessionScope.loginId}님환영합니다.</h1>
-	</c:if>
 	<ul>
 		<c:choose>
-			<c:when test="${empty sessionScope.loginId }">
-				<li><a href="/loginForm">로그인하기</a>
-				</li>
+			<c:when test="${not empty sessionScope.tcLogin }">
+				<h1>${sessionScope.tcLogin}님환영합니다.</h1>
+				<a href="teacherMypageForm">센세마이페이지</a>
+
+			</c:when>
+			<c:when test="${not empty sessionScope.stLogin }">
+				<h1>${sessionScope.stLogin}님환영합니다.</h1>
+				<a href="map?st_id=${sessionScope.stLogin }">MAP</a>
 			</c:when>
 			<c:otherwise>
-				<li><a href="">로그아웃</a></li>
+				<li><a href="loginForm">로그인</a></li>
 			</c:otherwise>
 		</c:choose>
-		<li><a href="map">map</a></li>
 	</ul>
 </body>
 </html>

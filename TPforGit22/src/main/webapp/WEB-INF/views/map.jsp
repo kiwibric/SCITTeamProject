@@ -183,8 +183,8 @@
 																		//클릭하면 해당 센세 아이디로 접근해서 인포 새창 띄우기
 																		var popup = window
 																				.open(
-																						"/infoWindow?teacherId="
-																								+ value.tc_id,
+																						"/infoWindow?id="
+																								+ value.tc_id +"+${student.st_id }",
 																						"info",
 																						"width=550px,height=600px");
 
@@ -272,7 +272,7 @@ th, td {
 				<a href="teacherMypage">선생님 마이페이지</a> <a href="studentMypage">학생
 					마이페이지</a><br>
 				<h2>
-					Team <b>Project</b>
+					HI <b>SENSEI</b> 
 				</h2>
 			</div>
 		</div>
