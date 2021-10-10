@@ -41,7 +41,7 @@ public class JoinLoginService {
 		if(tsData != null) {
 			if (account.getTc_pw().equals(tsData.getTc_pw())) {
 				session.setAttribute("tcLogin", tsData.getTc_id());
-				path = "redirect:/";
+				path = "redirect:teacherMypage";
 			} else {
 				System.out.println("비밀번호가 틀린 상황");
 				path = "redirect:/loginForm";
