@@ -108,7 +108,6 @@ table {
 	<table width="500px" style=" border: 1px solid; border-collapse: collapse;">
 		<tr><th width="50px">no.</th><th width="100px">評価</th><th width="350px">レビュー</th></tr>
 		<c:forEach var="list" items="${selectTcReview}" varStatus="status">
-			${list}
 			<tr>
 				<td>${status.count }</td>
 				<c:if test="${list.rv_star eq 1}">
