@@ -53,7 +53,7 @@ public class MapController {
 		model.addAttribute("tc", tc);
 		
 		//선생님 후기
-		ArrayList<ReviewVO> selectTcReview = rdao.selectTrReview(idArray[1]);
+		ArrayList<ReviewVO> selectTcReview = rdao.selectTrReview(idArray[0]);
 		model.addAttribute("selectTcReview", selectTcReview);
 		
 		session.setAttribute("st_id", idArray[1]);
