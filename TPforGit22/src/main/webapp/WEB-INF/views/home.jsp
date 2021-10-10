@@ -10,7 +10,7 @@
 		<c:choose>
 			<c:when test="${not empty sessionScope.tcLogin }">
 				<h1>${sessionScope.tcLogin}님환영합니다.</h1>
-				<a href="teacherMypageForm">센세마이페이지</a>
+				<a href="teacherMypage">센세마이페이지</a>
 
 			</c:when>
 			<c:when test="${not empty sessionScope.stLogin }">

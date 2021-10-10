@@ -1,5 +1,7 @@
 package com.scit.test43.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,13 +23,15 @@ public class SugangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/insertSugang", method = RequestMethod.GET)
-	public boolean insertSugang(String tc_id, SugangVO sugang) {
+	public boolean insertSugang(String tc_id, SugangVO sugang, HttpSession session) {
 		
 		//1. 수강신청 테이블 업데이트(학생id와 선생님 id필요)
 		boolean flag = false;
 		
+		String sg_id = (String)session.getAttribute("stLogin");
+		System.out.println("수강신청 학생아이디 잘 들어가나요?"+sg_id);
 		//임의로 학생 ID를 넣어 놓음(추후 로그인 아이디로 변경 예정)
-		sugang.setSg_student("momo");
+		sugang.setSg_student(sg_id);
 		sugang.setSg_teacher(tc_id);		
 		
 		int insertSugangTable = dao.insertSugangTable(sugang);

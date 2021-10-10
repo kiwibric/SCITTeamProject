@@ -2,6 +2,8 @@ package com.scit.test43.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +23,20 @@ public class MyPageController {
 	@Autowired
 	MyPageDAO dao;
 	
+	@Autowired
+	private HttpSession session;
+	
 	//ReviewDAO
 	@Autowired
 	ReviewDAO rdao;
 	
 	//선생님 마이페이지 폼이동
 	@RequestMapping(value ="teacherMypage", method = RequestMethod.GET)
-	public String teacherMyPageForm(Model model) {
+	public String teacherMyPageForm(Model model, HttpSession session) {
 	
 	//후에 http에서 로그인 정보 받아올 예정
-	String sg_teacher = "mosi";
+	String sg_teacher = (String) session.getAttribute("tcLogin");
+	System.out.println("선생님 로그인 정보"+sg_teacher);
 	
 	//선생님의 사진
 	String tc_pic = dao.selectTeacherInfo(sg_teacher).getTc_pic();
@@ -130,7 +136,8 @@ public class MyPageController {
 	public String studentMyPageForm(Model model) {
 		
 		//후에 http에서 로그인 정보 받아올 예정
-		String sg_student = "momo";
+		String sg_student = (String) session.getAttribute("stLogin");
+		System.out.println("학생 로그인 정보"+sg_student);
 		
 		//학생의 별점
 		int st_starAvg = dao.st_starAvg(sg_student);
