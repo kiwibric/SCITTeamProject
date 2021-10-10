@@ -269,10 +269,9 @@ th, td {
 		<div class="row">
 			<div class="col-xs-6">
 				<!--마이페이지로 화면 전환(홈화면 구성시 이동 예정) 선생님은 로그인한 경우 바로 마이페이지로 이동 학생은 따로 버튼 구성 예정 -->
-				<a href="teacherMypage">선생님 마이페이지</a> <a href="studentMypage">학생
-					마이페이지</a><br>
+				 <a href="studentMypage">My Page</a><br>
 				<h2>
-					HI <b>SENSEI</b> 
+					ハイ、<b>センセイ</b> 
 				</h2>
 			</div>
 		</div>

@@ -50,7 +50,7 @@ public class JoinLoginService {
 			System.out.println(account.getTc_pw());
 			if (account.getTc_pw().equals(ssData.getSt_pw())) {
 				session.setAttribute("stLogin", ssData.getSt_id());
-				path = "redirect:/";
+				path = "redirect:map?st_id="+ssData.getSt_id();
 			} else {
 				System.out.println("비밀번호가 틀린 상황");
 				path = "redirect:/loginForm";

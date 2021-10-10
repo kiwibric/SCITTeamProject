@@ -85,7 +85,7 @@ table {
 </style>
 </head>
 <body>
-	<table width="500px" border="1" style="">
+	<table width="500px" border="0" style="">
 		<tr><td rowspan="7"><img src="${tc.tc_pic}" width="60px"></td><td>ID</td><td>${tc.tc_id}</td></tr>
 		<tr><td>性別</td><td>${tc.tc_gender}</td></tr>
 		<tr><td>地域</td><td>${tc.tc_loc}</td></tr>
@@ -97,7 +97,6 @@ table {
 		<tr><td><input type="hidden" id="tc_id" value="${tc.tc_id}"></td></tr>
 		<tr>
 			<td colspan="3">
-				${sessionScope.st_id }<!-- 로그인한 학생 아이디 -->
 				<input type="button" id ="contact" value="受講申請">
 				<button type="button" id="boardList" tc_id="${tc.tc_id }">お問い合わせ</button>
 			</td>
