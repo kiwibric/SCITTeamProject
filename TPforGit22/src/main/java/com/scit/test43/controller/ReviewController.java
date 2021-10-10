@@ -2,6 +2,8 @@ package com.scit.test43.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,21 +25,21 @@ public class ReviewController {
 	@Autowired
 	TeacherDAO tdao;
 	
-	//후에 http에서 로그인 정보 받아올 예정
-	//(String) session.getAttribute("loginId"))
-	String loginId = "momo";
+	@Autowired
+	private HttpSession session;
 	
 	//후기 작성폼 이동
 	@RequestMapping(value="writeForm", method = RequestMethod.GET)
-	public String writeReviewForm(Model model, String rv_target) {
+	public String writeReviewForm(Model model, String rv_target, String rv_sender) {
 		model.addAttribute("rv_target", rv_target);
+		model.addAttribute("rv_sender", rv_sender);
+		System.out.println("보내는 사람" + rv_sender);
 		return "writeReviewForm";
 	}
 	
 	//후기 작성
 	@RequestMapping(value="writeReview", method=RequestMethod.POST)
-	public String writeReview(ReviewVO review) {
-		review.setRv_sender(loginId);
+	public String writeReview(ReviewVO review, String rv_target, String rv_sender) {
 		int cnt = dao.writeReview(review);
 		if(cnt > 0) {
 			//별점 평균 업데이트
@@ -53,29 +55,35 @@ public class ReviewController {
 		}
 		ArrayList<TeacherVO> teacher = tdao.list();
 		for(TeacherVO t : teacher) {
-			if(t.getTc_id().equals(loginId)) {
+			if(t.getTc_id().equals(rv_sender)) {
 				return "redirect:/teacherMypage";
 			}
 		}
 		return "redirect:/studentMypage";
 	}
 
-	//후기 목록폼 이동
+	//학생 후기 목록폼 이동
 	@RequestMapping(value = "selectMyReviewForm", method = RequestMethod.GET)
-	public String selectMyReviewForm(Model model) {
-		//후에 session 로그인 아이디로 변경
-		//(String) session.getAttribute("loginId"))
-		String rv_sender = "momo";
+	public String selectMyReviewForm(Model model, String rv_sender) {
 		
 		ArrayList<ReviewVO> selectMyReview = dao.selectMyReview(rv_sender);
 		model.addAttribute("selectMyReview", selectMyReview);
 	
 	return "selectMyReviewForm";
 	}
+	//선생님 후기 목록폼 이동
+	@RequestMapping(value = "selectTcMyReviewForm", method = RequestMethod.GET)
+	public String selectTcMyReviewForm(Model model, String rv_sender) {
+		
+		ArrayList<ReviewVO> selectTcMyReview = dao.selectTcMyReview(rv_sender);
+		model.addAttribute("selectTcMyReview", selectTcMyReview);
+	
+	return "selectTcMyReviewForm";
+	}
 	
 	//후기 삭제
 	@RequestMapping(value="deleteReview", method = RequestMethod.GET)
-	public String deleteReview(int rv_num) {
+	public String deleteReview(int rv_num, String rv_target, String rv_sender) {
 		int cnt = 0;
 		cnt = dao.deleteReview(rv_num);
 		if(cnt > 0) {
@@ -92,24 +100,31 @@ public class ReviewController {
 		}
 		ArrayList<TeacherVO> teacher = tdao.list();
 		for(TeacherVO t : teacher) {
-			if(t.getTc_id().equals(loginId)) {
+			if(t.getTc_id().equals(rv_sender)) {
 				return "redirect:/teacherMypage";
 			}
 		}
 		return "redirect:/studentMypage";
 	}
 	
-	//후기 수정폼 이동
-		@RequestMapping(value = "updateReviewForm", method = RequestMethod.GET)
-		public String updateReviewForm(Model model, int rv_num) {
-			ReviewVO review = dao.selectReview(rv_num);
-			model.addAttribute("review", review);
-			return "updateReviewForm";
-		}
+	//학생 후기 수정폼 이동
+	@RequestMapping(value = "updateReviewForm", method = RequestMethod.GET)
+	public String updateReviewForm(Model model, int rv_num) {
+		ReviewVO review = dao.selectReview(rv_num);
+		model.addAttribute("review", review);
+		return "updateReviewForm";
+	}
+	//선생님 후기 수정폼 이동
+	@RequestMapping(value = "updateTcReviewForm", method = RequestMethod.GET)
+	public String updateTcReviewForm(Model model, int rv_num) {
+		ReviewVO review = dao.selectReview(rv_num);
+		model.addAttribute("review", review);
+		return "updateTcReviewForm";
+	}
 	
 	//후기 수정
 	@RequestMapping(value="updateReview", method = RequestMethod.POST)
-	public String updateReview(ReviewVO review) {
+	public String updateReview(ReviewVO review, String rv_sender) {
 		if (review.getRv_star()==1)
 			review.setRv_star(1);
 		else if (review.getRv_star()==2)
@@ -133,7 +148,9 @@ public class ReviewController {
 		}else {
 			System.out.println("입력 실패");
 		}
-		return "redirect:/selectMyReviewForm";
+		return "redirect:/";
 	}
+	
+
 	
 }

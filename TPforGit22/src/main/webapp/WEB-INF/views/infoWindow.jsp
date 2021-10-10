@@ -85,7 +85,7 @@ table {
 </style>
 </head>
 <body>
-	<table width="500px" border="0" style="">
+	<table width="500px" border="1" style="">
 		<tr><td rowspan="7"><img src="${tc.tc_pic}" width="60px"></td><td>ID</td><td>${tc.tc_id}</td></tr>
 		<tr><td>性別</td><td>${tc.tc_gender}</td></tr>
 		<tr><td>地域</td><td>${tc.tc_loc}</td></tr>
@@ -97,6 +97,7 @@ table {
 		<tr><td><input type="hidden" id="tc_id" value="${tc.tc_id}"></td></tr>
 		<tr>
 			<td colspan="3">
+				<!-- 로그인한 학생 아이디 -->
 				<input type="button" id ="contact" value="受講申請">
 				<button type="button" id="boardList" tc_id="${tc.tc_id }">お問い合わせ</button>
 			</td>
@@ -107,6 +108,7 @@ table {
 	<table width="500px" style=" border: 1px solid; border-collapse: collapse;">
 		<tr><th width="50px">no.</th><th width="100px">評価</th><th width="350px">レビュー</th></tr>
 		<c:forEach var="list" items="${selectTcReview}" varStatus="status">
+			${list}
 			<tr>
 				<td>${status.count }</td>
 				<c:if test="${list.rv_star eq 1}">

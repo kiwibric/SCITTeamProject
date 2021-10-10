@@ -24,7 +24,7 @@ public class ReviewDAO {
 		}
 		return cnt;
 	}
-	//후기 수정
+	//학생 후기 수정
 	public int updateReview(ReviewVO review) {
 		int cnt = 0;
 		try {
@@ -56,6 +56,17 @@ public class ReviewDAO {
 			e.printStackTrace();
 		}
 		return selectMyReview;
+	}
+	//후기 목록
+	public ArrayList<ReviewVO> selectTcMyReview(String rv_sender){
+		ArrayList<ReviewVO> selectTcMyReview = null;
+		try {
+			ReviewMapper mapper = session.getMapper(ReviewMapper.class);
+			selectTcMyReview = mapper.selectTcMyReview(rv_sender);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return selectTcMyReview;
 	}
 	//rv_num으로 후기 선택
 	public ReviewVO selectReview(int rv_num) {
@@ -95,10 +106,11 @@ public class ReviewDAO {
 			int cnt = 0;
 			try {
 				ReviewMapper mapper = session.getMapper(ReviewMapper.class);
-				cnt = mapper.updateTcAvg();
+				cnt = mapper.updateStAvg();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return cnt;
 		}
+		
 }

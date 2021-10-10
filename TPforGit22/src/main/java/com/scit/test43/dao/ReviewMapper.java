@@ -13,6 +13,7 @@ public interface ReviewMapper {
 	int deleteReview(int rv_num);
 	//내가 쓴 리뷰 목록
 	ArrayList<ReviewVO> selectMyReview(String rv_sender);
+	ArrayList<ReviewVO> selectTcMyReview(String rv_sender);
 	//리뷰번호로 리뷰 선택
 	ReviewVO selectReview(int rv_num);
 	//선생님id로 리뷰 선택
@@ -21,4 +22,5 @@ public interface ReviewMapper {
 	int updateTcAvg();
 	//학생 평균 평점 업데이트
 	int updateStAvg();
+	
 }

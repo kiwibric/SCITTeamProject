@@ -62,6 +62,7 @@ div img{
 }
 </style>
 <script type="text/javascript">
+
 </script>
 </head>
 <body>
@@ -72,15 +73,15 @@ div img{
 <div id="container">
  	<div id="profile">
  		<img src="${tc_pic}" style="float: left; width: 100px; height: 100px; padding: 10px;" class="left-img"><br>
- 		<span style="font-size: 50px; line-height: 15px;">mosi</span>
- 			<button type="button" onclick="" class="btn btn-secondary btn-sm" style="margin-left: 10px; margin-bottom: 15px;">로그아웃</button>
+ 		<span style="font-size: 50px; line-height: 15px;">${sessionScope.tcLogin}</span>
+ 			<button type="button" onclick="location.href='/Login/tcLogout'" id="logout" class="btn btn-secondary btn-sm" style="margin-left: 10px; margin-bottom: 15px;">로그아웃</button>
  			<button type="button" onclick="" class="btn btn-secondary btn-sm" style="margin-bottom: 15px;">회원탈퇴</button>
- 		<h4 style="margin-left: 17px;">mosi님의 별점은 ${tc_starAvg}입니다</h4>
+ 		<h4 style="margin-left: 17px;">${sessionScope.tcLogin}님의 별점은 ${tc_starAvg}입니다</h4>
  	</div>
  	<div id="sidebar">
  		<button onclick="location.href='updateMyInfoForm'" class="btn btn-secondary btn-lg" style="margin-bottom: 5px">정보 수정</button><br>
 		<!-- 후기관리 버튼 -->
-		<button onclick="location.href='selectMyReviewForm'" class="btn btn-secondary btn-lg">후기 관리</button>
+		<button onclick="location.href='selectTcMyReviewForm?rv_sender=${sessionScope.tcLogin}'" class="btn btn-secondary btn-lg">후기 관리</button>
  	</div>
 
 	<div id="information">
@@ -135,12 +136,12 @@ div img{
 				<!-- 후기작성 버튼 (작성된 후기가 없을 경우) -->
 				<c:choose>
 					<c:when test="${ReviewCount == 0}">
-						<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.st_id}'"></td>
+						<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.st_id}&rv_sender=${sessionScope.tcLogin}'"></td>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="list4" items="${selectMyReview }">
+						<c:forEach var="list4" items="${selectTcMyReview }">
 							<c:if test="${list4.rv_target != list1.st_id}">
-								<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.st_id}'"></td>
+								<td><input type="button" value="후기작성" onclick = "location.href='writeForm?rv_target=${list1.st_id}&rv_sender=${sessionScope.tcLogin}'"></td>
 							</c:if>
 						</c:forEach>
 					</c:otherwise>

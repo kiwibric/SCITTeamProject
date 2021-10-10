@@ -27,8 +27,13 @@ public class JoinLoginController {
 	}
 
 	
-//	@RequestMapping(value = "/Login/logout", method = RequestMethod.GET)
-//	public String logout() {
-//		return service.logout();
-//	}
+	@RequestMapping(value = "/Login/tcLogout", method = RequestMethod.GET)
+	public String tcLogout() {
+		return service.tcLogout();
+	}
+	
+	@RequestMapping(value = "/Login/stLogout", method = RequestMethod.GET)
+	public String stLogout() {
+		return service.stLogout();
+	}
 }

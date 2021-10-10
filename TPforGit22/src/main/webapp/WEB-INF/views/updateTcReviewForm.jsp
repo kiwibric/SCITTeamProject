@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>후기 수정</title>
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="/resources/css/styles2.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
@@ -109,11 +109,9 @@ $(function(){
 					<input type="hidden" id="current_star" name="current_star" value="${review.rv_star}">
                     
                     <input type="submit" class="btn btn-primary" value="수정">
-					<input type="button" class="btn btn-primary" value="취소" onclick="location.href='selectMyReviewForm?rv_sender=${sessionScope.stLogin}'">
+					<input type="button" class="btn btn-primary" value="취소" onclick="location.href='selectTcMyReviewForm?rv_sender=${sessionScope.tcLogin}'">
                     
                     
-                     <!-- <button type="submit" >입력</button>
-                      <button type="button" class="btn btn-primary" onclick="location.href='/'">취소</button> -->
                 </form>
             </div> <!-- /.col-md-8 -->
         </div> <!-- /.row -->

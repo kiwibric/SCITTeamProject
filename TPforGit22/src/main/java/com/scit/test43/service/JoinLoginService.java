@@ -50,7 +50,7 @@ public class JoinLoginService {
 			System.out.println(account.getTc_pw());
 			if (account.getTc_pw().equals(ssData.getSt_pw())) {
 				session.setAttribute("stLogin", ssData.getSt_id());
-				path = "redirect:map?st_id="+ssData.getSt_id();
+				path = "redirect:/";
 			} else {
 				System.out.println("비밀번호가 틀린 상황");
 				path = "redirect:/loginForm";
@@ -62,9 +62,13 @@ public class JoinLoginService {
 		return path;
 	}
 	
-//	public String logout() {
-//		session.removeAttribute("loginId");
-//		session.removeAttribute("loginNm");
-//		return "redirect:/";
-//	}
+	public String tcLogout() {
+		session.removeAttribute("tcLogin");
+		return "redirect:/";
+	}
+	
+	public String stLogout() {
+		session.removeAttribute("stLogin");
+		return "redirect:/";
+	}
 }

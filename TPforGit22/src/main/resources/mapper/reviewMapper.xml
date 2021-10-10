@@ -44,9 +44,24 @@ select
 from
 	tpReview r ,  tpteacher t
 where
-	rv_sender = #{rc_sender}
+	rv_sender = #{rv_sender}
 and 
     r.rv_target = t.tc_id
+</select>
+
+<select id="selectTcMyReview" parameterType="String" resultType="review">
+select
+	r.rv_num
+	,r.rv_target
+	,r.rv_sender
+	,r.rv_star
+	,r.rv_review
+from
+	tpReview r ,  tpstudent s
+where
+	rv_sender = #{rv_sender}
+and 
+    r.rv_target = s.st_id
 </select>
 
 <select id="selectReview" parameterType="int" resultType="review">

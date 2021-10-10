@@ -71,6 +71,7 @@ function formCheck() {
                         <div class="col-md-6">
                             <div class="form-group"> <label class="sr-only">
                             <input type="hidden" name="rv_target" id="rv_target" value="${rv_target }">
+                            <input type="hidden" name="rv_sender" id="rv_sender" value="${rv_sender }">
                             </label>  <select name="rv_star" id="rv_star">
 							<option value="1">★</option>
 							<option value="2">★★</option>
@@ -94,25 +95,6 @@ function formCheck() {
         </div> <!-- /.row -->
     </div> <!-- /.container -->
 </div>
-<%-- <h1>후기 작성</h1>
-	<form action="writeReview" method="post" onsubmit="return formCheck();">
-		<table>
-			<tr>
-				<td>대상</td>
-				<td><input type="hidden" name="rv_target" id="rv_target" value="${rv_target }">${rv_target }</td>
-			</tr>
-			<tr>
-				<td>별점</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>후기</td>
-				<td><textarea name="rv_review" id="rv_review" cols="40" rows="8"></textarea></td>
-			</tr>
-			<tr>
-				
-			</tr>
-		</table>
-	</form> --%>
+
 </body>
 </html>

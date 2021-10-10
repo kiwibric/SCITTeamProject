@@ -57,11 +57,11 @@ public class MyPageController {
 	model.addAttribute("acceptStudent", acceptStudent);
 	
 	//내가 쓴 후기 목록. 학생 id필요
-	ArrayList<ReviewVO> selectMyReview = rdao.selectMyReview(sg_teacher);
-	model.addAttribute("selectMyReview", selectMyReview);
+	ArrayList<ReviewVO> selectTcMyReview = rdao.selectTcMyReview(sg_teacher);
+	model.addAttribute("selectTcMyReview", selectTcMyReview);
 	
 	//내가 쓴 후기 개수 확인(후기작성 버튼 활성/비활성 사용)
-	int ReviewCount = selectMyReview.size();
+	int ReviewCount = selectTcMyReview.size();
 	model.addAttribute("ReviewCount", ReviewCount);
 	
 	//내가 받은 후기 목록. 로그인 id필요
@@ -157,7 +157,7 @@ public class MyPageController {
 		ArrayList<TeacherVO> refusedSugang = dao.refusedSugang(sg_student);
 		model.addAttribute("refuesdSugang", refusedSugang);
 		
-		//내가 쓴 강의 목록. 학생 id필요
+		//내가 쓴 강의 목록
 		ArrayList<ReviewVO> selectMyReview = rdao.selectMyReview(sg_student);
 		model.addAttribute("selectMyReview", selectMyReview);
 		
