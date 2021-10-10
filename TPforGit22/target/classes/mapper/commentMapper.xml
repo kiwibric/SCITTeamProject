@@ -14,17 +14,32 @@
 		,content
 		,writer
 		,target
+		,hits
 		,to_char(indate, 'YYYY-MM-DD HH24:Mi:SS') as indate
 	from
 		cmt
-	<if test="searchText != null">
 	where
+		target = #{target}
+	<if test="searchText != null">
+	and
 		subject like '%' || #{searchText} || '%'
 	</if>
-	<if test="target != null">
-	and
+	order by
+		cmt_id asc
+</select>
+
+<select id="boardList" parameterType="string" resultType="comment">
+	select
+		cmt_id
+		,subject
+		,content
+		,writer
+		,target
+		,to_char(indate, 'YYYY-MM-DD HH24:Mi:SS') as indate
+	from
+		cmt
+	where
 		target = #{target}
-	</if>
 	order by
 		cmt_id asc
 </select>
@@ -34,13 +49,16 @@
 		count(*)
 	from
 		cmt
-	<if test="_parameter != null">
 	where
 		target = #{target}
+	<if test="searchText != null">
+	and
+		subject like '%' || #{searchText} || '%'
 	</if>
+		
 </select>
 
-<select id="getContentView" resultType="comment" parameterType="int">
+<select id="getContentView" resultType="comment" parameterType="string">
 	select
 		cmt_id
 		,subject
@@ -54,7 +72,7 @@
 		cmt_id = #{cmt_id}
 </select>
 
-<update id="updateHits" parameterType="int">
+<update id="updateHits" parameterType="string">
 	update
 		cmt
 	set
@@ -63,7 +81,7 @@
 		cmt_id = #{cmt_id}
 </update>
 
-<insert id ="insertContent" parameterType="comment">
+<insert id ="insertContent" parameterType="java.util.HashMap">
 	insert into cmt(
             cmt_id
             ,subject
@@ -117,13 +135,13 @@
 <!-- 댓글 -->
 
 <insert id="regReply" parameterType="reply">
-	<selectKey keyProperty="reply_id" resultType="int" order="BEFORE">
+	<selectKey keyProperty="reply_id" resultType="string" order="BEFORE">
 		select 
 			cmt_reply_seq.nextval
 		from
 			dual
 	</selectKey>
-	insert into comment_reply(
+	insert into cmt_reply(
 		reply_id
 		,cmt_id
 		,parent_id
@@ -143,7 +161,7 @@
 
 </insert>
 
-<select id="getReplyList" resultType="reply" parameterType="reply">
+<select id="getReplyList" resultType="reply" parameterType="string">
 	select
 		reply_id
 		,cmt_id
@@ -208,7 +226,7 @@
 
 <update id="updateReply" parameterType="reply">
 	update
-		comment_reply
+		cmt_reply
 	set
 		parent_id = #{parent_id},
 		depth = #{depth},

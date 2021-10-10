@@ -44,7 +44,7 @@ $(function(){
 	});
 	
 	$("#boardList").click(function(){
-		location.href = "/board/list?target=" + $(this).attr("tc_id");
+		window.open("/board/list?target=" + $(this).attr("tc_id"),"boardList","fullscreen=1");
  	});
 })
 

@@ -30,6 +30,29 @@ public class CommentDAO {
 		return list;
 	}
 	
+	public ArrayList<CommentVO> boardList(String target) {
+		ArrayList<CommentVO> list = null;
+		try {
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
+			list = mapper.boardList(target);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 전체글 개수 조회
+	public int selectContentCnt(String target, String searchText) {
+		int cnt = 0;
+		try {
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
+			cnt = mapper.selectContentCnt(target, searchText);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+	
 	// 글 쓰기
 	public int insertContent(Map<String, Object> paramMap) {
 		int cnt = 0;
@@ -55,21 +78,21 @@ public class CommentDAO {
 	}
 	
 	// 조회수 증가
-	public void updateHits(Map<String, Object> paramMap) {
+	public void updateHits(String cmt_id) {
 		try {
 			CommentMapper mapper = session.getMapper(CommentMapper.class);
-			mapper.updateHits(paramMap);
+			mapper.updateHits(cmt_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	// 글 읽기
-	public CommentVO getContentView(Map<String, Object> paramMap) {
+	public CommentVO getContentView(String cmt_id) {
 		CommentVO getContentView = null;
 		try {
 			CommentMapper mapper = session.getMapper(CommentMapper.class);
-			getContentView = mapper.getContentView(paramMap);
+			getContentView = mapper.getContentView(cmt_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,18 +111,6 @@ public class CommentDAO {
 		return delComment;
 	}
 	
-	// 전체글 개수 조회
-	public int selectContentCnt(String searchText) {
-		int cnt = 0;
-		try {
-			CommentMapper mapper = session.getMapper(CommentMapper.class);
-			cnt = mapper.selectContentCnt(searchText);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return cnt;
-	}
-	
 	// 댓글
 
 	public int regReply(Map<String, Object> paramMap) {
@@ -113,11 +124,11 @@ public class CommentDAO {
 		return regReply;
 	}
 
-	public List<CommentReplyVO> getReplyList(Map<String, Object> paramMap) {
+	public List<CommentReplyVO> getReplyList(String cmt_id) {
 		List<CommentReplyVO> getReplyList = null;
 		try {
 			CommentMapper mapper = session.getMapper(CommentMapper.class);
-			getReplyList = mapper.getReplyList(paramMap);
+			getReplyList = mapper.getReplyList(cmt_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

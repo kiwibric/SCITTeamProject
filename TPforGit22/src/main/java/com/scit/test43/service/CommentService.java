@@ -23,17 +23,19 @@ public class CommentService {
 	@Autowired
 	private HttpSession session;
 	
+//	계시글
+	
 	// 글 쓰기 및 수정
 	public int insertContent(Map<String, Object> paramMap) {
 		
 		// 로그인한 사용자의 ID
-		String loginId = (String)session.getAttribute("loginId"); // session Object를 String으로 강제형변환
+		String loginId = (String)session.getAttribute("stLogin"); // session Object를 String으로 강제형변환
 		// 글쓴이의 ID 설정
-		paramMap.put("writer",loginId);
+		paramMap.put("writer", loginId);
 		
-        if(paramMap.get("cmt_id")==null) { // 아이디가 없으면 입력
+        if(paramMap.get("cmt_id")==null) { // 글이 없으면 작성
             return dao.insertContent(paramMap);
-        }else {	// 아이디가 있으면 수정
+        } else { // 글이 있으면 수정
             return dao.updateContent(paramMap);
         }
 	}
@@ -42,16 +44,22 @@ public class CommentService {
 	public ArrayList<CommentVO> commentList(String target, String searchText, int startRecord, int countPerPage) {
 		return dao.commentList(target, searchText, startRecord, countPerPage);
 	}
-	public int selectTotalCnt(String searchText) {
-		return dao.selectContentCnt(searchText);
+	
+	public ArrayList<CommentVO> boardList(String target) {
+		return dao.boardList(target);
 	}
 	
-	// 글 조회 및 조회수 증가
-	public CommentVO getContentView(Map<String, Object> paramMap) {
+	// 전체글 개수 조회
+	public int selectContentCnt(String target, String searchText) {
+		return dao.selectContentCnt(target, searchText);
+	}
+	
+	// 특정 글 조회 및 조회수 증가
+	public CommentVO getContentView(String cmt_id) {
 		// 조회수 증가
-		dao.updateHits(paramMap);
+		dao.updateHits(cmt_id);
 		// 글 조회
-        return dao.getContentView(paramMap);
+        return dao.getContentView(cmt_id);
     }
 	
 	// 계시글 패스워드 조회
@@ -59,20 +67,21 @@ public class CommentService {
         return dao.getCommentCnt(paramMap);
     }
 	
+	// 계시글 삭제
 	public int deleteComment(Map<String, Object> paramMap) {
         return dao.deleteComment(paramMap);
     }
 	
 	
-	// 댓글
+//	Reply
 	
 	public int regReply(Map<String, Object> paramMap) {
         return dao.regReply(paramMap);
     }
 	
-	public List<CommentReplyVO> getReplyList(Map<String, Object> paramMap) {
+	public List<CommentReplyVO> getReplyList(String cmt_id) {
 		 
-        List<CommentReplyVO> commentReplyList = dao.getReplyList(paramMap);
+        List<CommentReplyVO> commentReplyList = dao.getReplyList(cmt_id);
  
         // 부모
         List<CommentReplyVO> commentReplyListParent = new ArrayList<CommentReplyVO>();

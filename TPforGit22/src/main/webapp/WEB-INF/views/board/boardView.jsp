@@ -42,35 +42,35 @@ $(document).ready(function(){
         
         //값 셋팅
         var objParams = {
-                cmt_id        : $("#cmt_id").val(),
-                parent_id        : "0",    
-                depth            : "0",
-                reply_writer    : $("#reply_writer").val(),
-                reply_password    : $("#reply_password").val(),
-                reply_content    : reply_content
+                cmt_id        	:	$("#cmt_id").val(),
+                parent_id       :	"0",    
+                depth           :	"0",
+                reply_writer    :	$("#reply_writer").val(),
+                reply_password  :	$("#reply_password").val(),
+                reply_content   :	reply_content
         };
         
-        var cmt_id;
+        var reply_id;
         
         //ajax 호출
         $.ajax({
             url			:	"/board/reply/save",
-            dataType    :    "json",
-            contentType :    "application/x-www-form-urlencoded; charset=UTF-8",
-            type        :    "post",
-            async       :     false, //동기: false, 비동기: ture
-            data        :    objParams,
-            success     :    function(retVal){
+            dataType    :	"json",
+            contentType :	"application/x-www-form-urlencoded; charset=UTF-8",
+            type        :	"post",
+            async       :	false, //동기: false, 비동기: ture
+            data        :	objParams,
+            success     :	function(retVal){
 
                 if(retVal.code != "OK") {
                     alert(retVal.message);
                     return false;
                 }else{
-                    cmt_id = retVal.cmt_id;
+                	reply_id = retVal.reply_id;
                 }
                 
             },
-            error        :    function(request, status, error){
+            error		:	function(request, status, error){
                 console.log("AJAX_ERROR");
             }
         });
@@ -86,12 +86,12 @@ $(document).ready(function(){
             $("#reply_writer").val()+
             '    </td>'+
             '    <td width="100px">'+
-            '        <input type="password" id="reply_password_'+cmt_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
+            '        <input type="password" id="reply_password_'+reply_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
             '    </td>'+
             '    <td align="center">'+
-            '       <button name="reply_reply" cmt_id = "'+cmt_id+'">댓글</button>'+
-            '       <button name="reply_modify" r_type = "main" parent_id = "0" cmt_id = "'+cmt_id+'">수정</button>      '+
-            '       <button name="reply_del" r_type = "main" cmt_id = "'+cmt_id+'">삭제</button>      '+
+            '       <button name="reply_reply" reply_id = "'+reply_id+'">댓글</button>'+
+            '       <button name="reply_modify" r_type = "main" parent_id = "0" reply_id = "'+reply_id+'">수정</button>      '+
+            '       <button name="reply_del" r_type = "main" reply_id = "'+reply_id+'">삭제</button>      '+
             '    </td>'+
             '</tr>';
             
@@ -112,9 +112,9 @@ $(document).ready(function(){
     $(document).on("click","button[name='reply_del']", function(){
         
         var check = false;
-        var cmt_id = $(this).attr("cmt_id");
+        var reply_id = $(this).attr("reply_id");
         var r_type = $(this).attr("r_type");
-        var reply_password = "reply_password_"+cmt_id;
+        var reply_password = "reply_password_" + reply_id;
         
         if($("#"+reply_password).val().trim() == ""){
             alert("패스워드을 입력하세요.");
@@ -126,7 +126,7 @@ $(document).ready(function(){
         //값 셋팅
         var objParams = {
                 reply_password	: $("#"+reply_password).val(),
-                cmt_id        	: cmt_id,
+                reply_id        : reply_id,
                 r_type          : r_type
         };
         
@@ -175,10 +175,10 @@ $(document).ready(function(){
     $(document).on("click","button[name='reply_modify']", function(){
         
         var check = false;
-        var cmt_id = $(this).attr("cmt_id");
+        var reply_id = $(this).attr("reply_id");
         var parent_id = $(this).attr("parent_id");
         var r_type = $(this).attr("r_type");
-        var reply_password = "reply_password_"+cmt_id;
+        var reply_password = "reply_password_" + reply_id;
          
         if($("#"+reply_password).val().trim() == ""){
             alert("패스워드을 입력하세요.");
@@ -190,7 +190,7 @@ $(document).ready(function(){
         //값 셋팅
         var objParams = {
                 reply_password  : $("#"+reply_password).val(),
-                cmt_id        : cmt_id
+                reply_id        : reply_id
         };
          
         //ajax 호출
@@ -238,21 +238,21 @@ $(document).ready(function(){
             var replyEditor = 
                '<tr id="reply_add" class="reply_modify">'+
                '   <td width="820px">'+
-               '       <textarea name="reply_modify_content_'+cmt_id+'" id="reply_modify_content_'+cmt_id+'" rows="3" cols="50">'+txt_reply_content+'</textarea>'+ //기존 내용 넣기
+               '       <textarea name="reply_modify_content_'+reply_id+'" id="reply_modify_content_'+reply_id+'" rows="3" cols="50">'+txt_reply_content+'</textarea>'+ //기존 내용 넣기
                '   </td>'+
                '   <td width="100px">'+
-               '       <input type="text" name="reply_modify_writer_'+cmt_id+'" id="reply_modify_writer_'+cmt_id+'" style="width:100%;" maxlength="10" placeholder="작성자" value="'+txt_reply_writer+'"/>'+ //기존 작성자 넣기
+               '       <input type="text" name="reply_modify_writer_'+reply_id+'" id="reply_modify_writer_'+reply_id+'" style="width:100%;" maxlength="10" placeholder="작성자" value="'+txt_reply_writer+'"/>'+ //기존 작성자 넣기
                '   </td>'+
                '   <td width="100px">'+
-               '       <input type="password" name="reply_modify_password_'+cmt_id+'" id="reply_modify_password_'+cmt_id+'" style="width:100%;" maxlength="10" placeholder="패스워드"/>'+
+               '       <input type="password" name="reply_modify_password_'+reply_id+'" id="reply_modify_password_'+reply_id+'" style="width:100%;" maxlength="10" placeholder="패스워드"/>'+
                '   </td>'+
                '   <td align="center">'+
-               '       <button name="reply_modify_save" r_type = "'+r_type+'" parent_id="'+parent_id+'" cmt_id="'+cmt_id+'">등록</button>'+
-               '       <button name="reply_modify_cancel" r_type = "'+r_type+'" r_content = "'+txt_reply_content+'" r_writer = "'+txt_reply_writer+'" parent_id="'+parent_id+'"  cmt_id="'+cmt_id+'">취소</button>'+
+               '       <button name="reply_modify_save" r_type = "'+r_type+'" parent_id="'+parent_id+'" reply_id="'+reply_id+'">등록</button>'+
+               '       <button name="reply_modify_cancel" r_type = "'+r_type+'" r_content = "'+txt_reply_content+'" r_writer = "'+txt_reply_writer+'" parent_id="'+parent_id+'"  reply_id="'+reply_id+'">취소</button>'+
                '   </td>'+
                '</tr>';
             var prevTr = $(this).parent().parent();
-               //자기 위에 붙이기
+			//자기 위에 붙이기
             prevTr.after(replyEditor);
             
             //자기 자신 삭제
@@ -267,7 +267,7 @@ $(document).ready(function(){
         var r_type = $(this).attr("r_type");
         var r_content = $(this).attr("r_content");
         var r_writer = $(this).attr("r_writer");
-        var cmt_id = $(this).attr("cmt_id");
+        var reply_id = $(this).attr("reply_id");
         var parent_id = $(this).attr("parent_id");
         
         var reply;
@@ -282,12 +282,12 @@ $(document).ready(function(){
                 r_writer+
                 '   </td>'+
                 '   <td width="100px">'+
-                '       <input type="password" id="reply_password_'+cmt_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
+                '       <input type="password" id="reply_password_'+reply_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
                 '   </td>'+
                 '   <td align="center">'+
-                '       <button name="reply_reply" cmt_id = "'+cmt_id+'">댓글</button>'+
-                '       <button name="reply_modify" r_type = "main" parent_id="0" cmt_id = "'+cmt_id+'">수정</button>      '+
-                '       <button name="reply_del" cmt_id = "'+cmt_id+'">삭제</button>      '+
+                '       <button name="reply_reply" reply_id = "'+reply_id+'">댓글</button>'+
+                '       <button name="reply_modify" r_type = "main" parent_id="0" reply_id = "'+reply_id+'">수정</button>      '+
+                '       <button name="reply_del" reply_id = "'+reply_id+'">삭제</button>      '+
                 '   </td>'+
                 '</tr>';
         }else{
@@ -300,52 +300,52 @@ $(document).ready(function(){
                 r_writer+
                 '   </td>'+
                 '   <td width="100px">'+
-                '       <input type="password" id="reply_password_'+cmt_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
+                '       <input type="password" id="reply_password_'+reply_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
                 '   </td>'+
                 '   <td align="center">'+
-                '       <button name="reply_modify" r_type = "sub" parent_id="'+parent_id+'" cmt_id = "'+cmt_id+'">수정</button>'+
-                '       <button name="reply_del" cmt_id = "'+cmt_id+'">삭제</button>'+
+                '       <button name="reply_modify" r_type = "sub" parent_id="'+parent_id+'" reply_id = "'+reply_id+'">수정</button>'+
+                '       <button name="reply_del" reply_id = "'+reply_id+'">삭제</button>'+
                 '   </td>'+
                 '</tr>';
         }
         
         var prevTr = $(this).parent().parent();
-           //자기 위에 붙이기
+        //자기 위에 붙이기
         prevTr.after(reply);
            
-          //자기 자신 삭제
+		//자기 자신 삭제
         $(this).parent().parent().remove(); 
           
         status = false;
         
     });
     
-      //댓글 수정 저장
+	//댓글 수정 저장
     $(document).on("click","button[name='reply_modify_save']", function(){
         
-        var cmt_id = $(this).attr("cmt_id");
+        var reply_id = $(this).attr("reply_id");
         
-        //널 체크
-        if($("#reply_modify_writer_"+cmt_id).val().trim() == ""){
+        // NULL 체크
+        if($("#reply_modify_writer_"+reply_id).val().trim() == ""){
             alert("이름을 입력하세요.");
-            $("#reply_modify_writer_"+cmt_id).focus();
+            $("#reply_modify_writer_"+reply_id).focus();
             return false;
         }
          
-        if($("#reply_modify_password_"+cmt_id).val().trim() == ""){
+        if($("#reply_modify_password_"+reply_id).val().trim() == ""){
             alert("패스워드를 입력하세요.");
-            $("#reply_modify_password_"+cmt_id).focus();
+            $("#reply_modify_password_"+reply_id).focus();
             return false;
         }
          
-        if($("#reply_modify_content_"+cmt_id).val().trim() == ""){
+        if($("#reply_modify_content_"+reply_id).val().trim() == ""){
             alert("내용을 입력하세요.");
-            $("#reply_modify_content_"+cmt_id).focus();
+            $("#reply_modify_content_"+reply_id).focus();
             return false;
         }
-        //DB에 업데이트 하고
+        // DB에 업데이트
         //ajax 호출 (여기에 댓글을 저장하는 로직을 개발)
-        var reply_content = $("#reply_modify_content_"+cmt_id).val().replace("\n", "<br>"); //개행처리
+        var reply_content = $("#reply_modify_content_"+reply_id).val().replace("\n", "<br>"); //개행처리
         
         var r_type = $(this).attr("r_type");
         
@@ -359,14 +359,14 @@ $(document).ready(function(){
             depth = "1";
         }
         
-        //값 셋팅
+        // 값 셋팅
         var objParams = {
-                board_id        : $("#cmt_id").val(),
-                cmt_id        : cmt_id,
+                reply_id        : reply_id,
+                cmt_id        	: $("#cmt_id").val(),
                 parent_id       : parent_id, 
                 depth           : depth,
-                reply_writer    : $("#reply_modify_writer_"+cmt_id).val(),
-                reply_password  : $("#reply_modify_password_"+cmt_id).val(),
+                reply_writer    : $("#reply_modify_writer_" + reply_id).val(),
+                reply_password  : $("#reply_modify_password_" + reply_id).val(),
                 reply_content   : reply_content
         };
 
@@ -383,7 +383,7 @@ $(document).ready(function(){
                     alert(retVal.message);
                     return false;
                 }else{
-                    cmt_id = retVal.cmt_id;
+                	reply_id = retVal.reply_id;
                     parent_id = retVal.parent_id;
                 }
                  
@@ -393,40 +393,40 @@ $(document).ready(function(){
             }
         });
         
-        //수정된댓글 내용을 적고
+        // 수정된댓글 내용을 적고
         if(r_type=="main"){
             reply = 
                 '<tr reply_type="main">'+
                 '   <td width="820px">'+
-                $("#reply_modify_content_"+cmt_id).val()+
+                $("#reply_modify_content_" + reply_id).val()+
                 '   </td>'+
                 '   <td width="100px">'+
-                $("#reply_modify_writer_"+cmt_id).val()+
+                $("#reply_modify_writer_" + reply_id).val()+
                 '   </td>'+
                 '   <td width="100px">'+
-                '       <input type="password" id="reply_password_'+cmt_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
+                '       <input type="password" id="reply_password_'+reply_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
                 '   </td>'+
                 '   <td align="center">'+
-                '       <button name="reply_reply" cmt_id = "'+cmt_id+'">댓글</button>'+
-                '       <button name="reply_modify" r_type = "main" parent_id = "0" cmt_id = "'+cmt_id+'">수정</button>      '+
-                '       <button name="reply_del" r_type = "main" cmt_id = "'+cmt_id+'">삭제</button>      '+
+                '       <button name="reply_reply" reply_id = "'+reply_id+'">댓글</button>'+
+                '       <button name="reply_modify" r_type = "main" parent_id = "0" reply_id = "'+reply_id+'">수정</button>      '+
+                '       <button name="reply_del" r_type = "main" reply_id = "'+reply_id+'">삭제</button>      '+
                 '   </td>'+
                 '</tr>';
         }else{
             reply = 
                 '<tr reply_type="sub">'+
                 '   <td width="820px"> → '+
-                $("#reply_modify_content_"+cmt_id).val()+
+                $("#reply_modify_content_"+reply_id).val()+
                 '   </td>'+
                 '   <td width="100px">'+
-                $("#reply_modify_writer_"+cmt_id).val()+
+                $("#reply_modify_writer_"+reply_id).val()+
                 '   </td>'+
                 '   <td width="100px">'+
-                '       <input type="password" id="reply_password_'+cmt_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
+                '       <input type="password" id="reply_password_'+reply_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
                 '   </td>'+
                 '   <td align="center">'+
-                '       <button name="reply_modify" r_type = "sub" parent_id = "'+parent_id+'" cmt_id = "'+cmt_id+'">수정</button>'+
-                '       <button name="reply_del" r_type = "sub" cmt_id = "'+cmt_id+'">삭제</button>'+
+                '       <button name="reply_modify" r_type = "sub" parent_id = "'+parent_id+'" reply_id = "'+reply_id+'">수정</button>'+
+                '       <button name="reply_del" r_type = "sub" reply_id = "'+reply_id+'">삭제</button>'+
                 '   </td>'+
                 '</tr>';
         }
@@ -442,7 +442,7 @@ $(document).ready(function(){
         
     });
       
-    //대댓글 입력창
+    // 대댓글 입력창
     $(document).on("click","button[name='reply_reply']",function(){ //동적 이벤트
         
         if(status){
@@ -454,10 +454,10 @@ $(document).ready(function(){
         
         $("#reply_add").remove();
         
-        var cmt_id = $(this).attr("cmt_id");
+        var reply_id = $(this).attr("reply_id");
         var last_check = false;//마지막 tr 체크
         
-        //입력받는 창 등록
+        // 입력받는 창 등록
          var replyEditor = 
             '<tr id="reply_add" class="reply_reply">'+
             '    <td width="820px">'+
@@ -470,15 +470,15 @@ $(document).ready(function(){
             '        <input type="password" name="reply_reply_password" style="width:100%;" maxlength="10" placeholder="패스워드"/>'+
             '    </td>'+
             '    <td align="center">'+
-            '        <button name="reply_reply_save" parent_id="'+cmt_id+'">등록</button>'+
+            '        <button name="reply_reply_save" parent_id="'+reply_id+'">등록</button>'+
             '        <button name="reply_reply_cancel">취소</button>'+
             '    </td>'+
             '</tr>';
             
         var prevTr = $(this).parent().parent().next();
         
-        //부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
-        //마지막 리플 처리
+        // 부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
+        // 마지막 리플 처리
         if(prevTr.attr("reply_type") == undefined){
             prevTr = $(this).parent().parent();
         }else{
@@ -494,7 +494,7 @@ $(document).ready(function(){
             
         }
         
-        if(last_check){//마지막이라면 제일 마지막 tr 뒤에 댓글 입력을 붙인다.
+        if(last_check){ // 마지막이라면 제일 마지막 tr 뒤에 댓글 입력을 붙인다.
             $('#reply_area tr:last').after(replyEditor);    
         }else{
             prevTr.after(replyEditor);
@@ -502,7 +502,7 @@ $(document).ready(function(){
         
     });
     
-    //대댓글 등록
+    // 대댓글 등록
     $(document).on("click","button[name='reply_reply_save']",function(){
                             
         var reply_reply_writer = $("input[name='reply_reply_writer']");
@@ -510,7 +510,7 @@ $(document).ready(function(){
         var reply_reply_content = $("textarea[name='reply_reply_content']");
         var reply_reply_content_val = reply_reply_content.val().replace("\n", "<br>"); //개행처리
         
-        //널 검사
+        // NULL 검사
         if(reply_reply_writer.val().trim() == ""){
             alert("이름을 입력하세요.");
             reply_reply_writer.focus();
@@ -529,20 +529,20 @@ $(document).ready(function(){
             return false;
         }
         
-        //값 셋팅
+        // 값 셋팅
         var objParams = {
-                board_id        : $("#cmt_id").val(),
-                parent_id        : $(this).attr("parent_id"),    
-                depth            : "1",
+                cmt_id        	: $("#cmt_id").val(),
+                parent_id		: $(this).attr("parent_id"),    
+                depth           : "1",
                 reply_writer    : reply_reply_writer.val(),
-                reply_password    : reply_reply_password.val(),
-                reply_content    : reply_reply_content_val
+                reply_password  : reply_reply_password.val(),
+                reply_content   : reply_reply_content_val
         };
         
-        var cmt_id;
+        var reply_id;
         var parent_id;
         
-        //ajax 호출
+        // ajax 호출
         $.ajax({
             url			:	"/board/reply/save",
             dataType    :	"json",
@@ -555,7 +555,7 @@ $(document).ready(function(){
                 if(retVal.code != "OK") {
                     alert(retVal.message);
                 }else{
-                    cmt_id = retVal.cmt_id;
+                	reply_id = retVal.reply_id;
                     parent_id = retVal.parent_id;
                 }
                 
@@ -574,11 +574,11 @@ $(document).ready(function(){
             reply_reply_writer.val()+
             '    </td>'+
             '    <td width="100px">'+
-            '        <input type="password" id="reply_password_'+cmt_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
+            '        <input type="password" id="reply_password_'+reply_id+'" style="width:100px;" maxlength="10" placeholder="패스워드"/>'+
             '    </td>'+
             '    <td align="center">'+
-            '       <button name="reply_modify" r_type = "sub" parent_id = "'+parent_id+'" cmt_id = "'+cmt_id+'">수정</button>'+
-            '       <button name="reply_del" r_type = "sub" cmt_id = "'+cmt_id+'">삭제</button>'+
+            '       <button name="reply_modify" r_type = "sub" parent_id = "'+parent_id+'" reply_id = "'+reply_id+'">수정</button>'+
+            '       <button name="reply_del" r_type = "sub" reply_id = "'+reply_id+'">삭제</button>'+
             '    </td>'+
             '</tr>';
             
@@ -592,14 +592,14 @@ $(document).ready(function(){
         
     });
     
-    //대댓글 입력창 취소
+    // 대댓글 입력창 취소
     $(document).on("click","button[name='reply_reply_cancel']",function(){
         $("#reply_add").remove();
         
         status = false;
     });
     
-    //글수정
+    // 글수정
     $("#modify").click(function(){
         
         var password = $("input[name='password']");
@@ -610,14 +610,14 @@ $(document).ready(function(){
             return false;
         }
                             
-        //ajax로 패스워드 검수 후 수정 페이지로 포워딩
-        //값 셋팅
+        // ajax로 패스워드 검수 후 수정 페이지로 포워딩
+        // 값 셋팅
         var objParams = {
         	cmt_id		: $("#cmt_id").val()
         	,password	: $("#password").val()
         };
                             
-        //ajax 호출
+        // ajax 호출
         $.ajax({
             url         :   "/board/check",
             dataType    :   "json",
@@ -641,7 +641,7 @@ $(document).ready(function(){
         
     });
     
-    //글 삭제
+    // 글 삭제
     $("#delete").click(function(){
         
         var password = $("input[name='password']");
@@ -652,14 +652,14 @@ $(document).ready(function(){
             return false;
         }
         
-        //ajax로 패스워드 검수 후 수정 페이지로 포워딩
-        //값 셋팅
+        // ajax로 패스워드 검수 후 수정 페이지로 포워딩
+        // 값 셋팅
         var objParams = {
         	cmt_id		: $("#cmt_id").val(),    
         	password 	: $("#password").val()
         };
                             
-        //ajax 호출
+        // ajax 호출
         $.ajax({
             url			:	"/board/del",
             dataType    :	"json",
@@ -701,14 +701,13 @@ textarea {
 </style>
 </head>
 <body>
-	<input type="hidden" id="target" name="target" value="${boardView.target }" />
 	<input type="hidden" id="cmt_id" name="cmt_id" value="${boardView.cmt_id }" />
 	<div align="center">
 		</br>
 		<table width="1200px">
 			<tr>
 				<td align="left">
-					<button type="button" id="list" tc_id="${boardView.target }">게시판</button>
+					<button type="button" id="list" tc_id="${boardView.target }">戻る</button>
 				</td>
 			</tr>
 		</table>
@@ -716,13 +715,13 @@ textarea {
 			<tr>
 				<td colspan="2" align="right"><input type="password"
 					id="password" name="password" style="width: 200px;" maxlength="10"
-					placeholder="패스워드" />
-					<button id="modify" name="modify">글 수정</button>
-					<button id="delete" name="delete">글 삭제</button></td>
+					placeholder="Password" />
+					<button id="modify" name="modify">修正</button>
+					<button id="delete" name="delete">削除</button></td>
 			</tr>
 			<tr>
-				<td width="900px">제목: ${boardView.subject}</td>
-				<td>작성자: ${boardView.writer}</td>
+				<td width="900px">タイトル: ${boardView.subject}</td>
+				<td>作成者: ${boardView.writer}</td>
 			</tr>
 			<tr height="500px">
 				<td colspan="2" valign="top">${boardView.content}</td>
@@ -741,36 +740,31 @@ textarea {
 					<td width="820px"><c:if test="${replyList.depth == '1'}"> → </c:if>${replyList.reply_content}
 					</td>
 					<td width="100px">${replyList.reply_writer}</td>
-					<td width="100px"><input type="password"
-						id="reply_password_${replyList.cmt_id}" style="width: 100px;"
-						maxlength="10" placeholder="패스워드" /></td>
+					<td width="100px"><input type="password" id="reply_password_${replyList.reply_id}" style="width: 100px;" maxlength="10" placeholder="패스워드" /></td>
 					<td align="center"><c:if test="${replyList.depth != '1'}">
-							<button name="reply_reply" parent_id="${replyList.cmt_id}"
-								cmt_id="${replyList.cmt_id}">댓글</button>
+							<button name="reply_reply" parent_id="${replyList.reply_id}" reply_id="${replyList.cmt_id}">返事</button>
 							<!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
 						</c:if>
 						<button name="reply_modify" parent_id="${replyList.parent_id}"
 							r_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"
-							cmt_id="${replyList.cmt_id}">수정</button>
+							cmt_id="${replyList.cmt_id}">修正</button>
 						<button name="reply_del"
 							r_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"
-							cmt_id="${replyList.cmt_id}">삭제</button></td>
+							cmt_id="${replyList.cmt_id}">削除</button></td>
 				</tr>
 			</c:forEach>
 		</table>
 		<table border="1" width="1200px" bordercolor="#46AA46">
 			<tr>
-				<td width="500px">이름: <input type="text" id="reply_writer"
-					name="reply_writer" style="width: 170px;" maxlength="10"
-					placeholder="작성자" /> 패스워드: <input type="password"
-					id="reply_password" name="reply_password" style="width: 170px;"
-					maxlength="10" placeholder="패스워드" />
-					<button id="reply_save" name="reply_save">댓글 등록</button>
+				<td width="500px">
+					名前: <input type="text" id="reply_writer"　name="reply_writer" style="width: 170px;" maxlength="10"　placeholder="作成者" />
+					パスワード: <input type="password"　id="reply_password" name="reply_password" style="width: 170px;"　maxlength="10" placeholder="패스워드" />
+					<button id="reply_save" name="reply_save">コメント登録</button>
 				</td>
 			</tr>
 			<tr>
 				<td><textarea id="reply_content" name="reply_content" rows="4"
-						cols="50" placeholder="댓글을 입력하세요."></textarea></td>
+						cols="50" placeholder="コメントを入力してください。"></textarea></td>
 			</tr>
 		</table>
 	</div>

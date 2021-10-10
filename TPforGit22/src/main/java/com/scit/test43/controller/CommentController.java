@@ -41,7 +41,7 @@ public class CommentController {
 			,@RequestParam(name = "page", defaultValue="1") int page) {
 		
 		// DB가서 전체글 수 조회
-		int totalCount = service.selectTotalCnt(target);
+		int totalCount = service.selectContentCnt(target, searchText);
 		// 페이징 객체 생성
 		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, totalCount);
 		
@@ -52,46 +52,42 @@ public class CommentController {
 		model.addAttribute("navi", navi);
 		model.addAttribute("searchText", searchText);
 		
-		return "board/boardList";
+		return "/board/boardList";
 	}
 	
 	// 계시글 등록 및 수정
     @RequestMapping(value = "/board/edit")
-    public String boardEdit(HttpServletRequest request, @RequestParam Map<String, Object> paramMap, Model model) {
+    public String boardEdit(HttpServletRequest request, Model model, 
+    		@RequestParam(name = "cmt_id", defaultValue = "")String cmt_id
+    		,@RequestParam(name = "target", defaultValue = "")String target) {
  
         //	Referer 검사
         String Referer = (String)request.getHeader("referer");
  
-        if(Referer != null){	// URL로 직접 접근 불가
-            if(paramMap.get("cmt_id") != null){	// 게시글 수정
-                if(Referer.indexOf("/board/view") > -1){
-                    // 정보를 가져온다.
-                    model.addAttribute("boardView", service.getContentView(paramMap));
-                    return "board/boardEdit";
-                }else{
-                    return "redirect:/board/list";
-                }
-            }else{ // 게시글 등록
-                if(Referer.indexOf("/board/list") > -1){
-                    return "board/boardEdit";
-                }else{
-                    return "redirect:/board/list";
-                }
+        if(Referer.length() != 0){	// URL로 직접 접근 불가
+            
+        	if(Referer.indexOf("/board/view") > -1) {	// 게시글 수정
+            	model.addAttribute("boardView", service.getContentView(cmt_id)); // 정보를 가져온다.
+            	return "/board/boardEdit";
+            } 
+        	else if(Referer.indexOf("/board/list") > -1) { // 게시글 등록
+            	model.addAttribute("list", service.boardList(target)); // target 지정
+                return "/board/boardEdit";
             }
-        }else{
-            return "redirect:/board/list";
-        }
- 
+        	else return "redirect:/home";
+        	
+        } else return "redirect:/home";
+        
     }
     
     //게시글 상세 보기
   	@RequestMapping(value = "/board/view", method = RequestMethod.GET)
-  	public String boardView(Map<String, Object> paramMap, Model model) {
+  	public String boardView(String cmt_id, Model model) {
    
-          model.addAttribute("replyList", service.getReplyList(paramMap));
-          model.addAttribute("boardView", service.getContentView(paramMap));
+          model.addAttribute("replyList", service.getReplyList(cmt_id));
+          model.addAttribute("boardView", service.getContentView(cmt_id));
    
-          return "boardView";
+          return "/board/boardView";
   	}
 	
 //  boardEdit
@@ -126,7 +122,7 @@ public class CommentController {
     
 //	boardView
     
-    // AJAX 호출 (게시글 패스워드 확인)
+    // AJAX 호출 (계시글 패스워드 확인)
     @ResponseBody
     @RequestMapping(value="/board/check", method=RequestMethod.POST)
     public Object boardCheck(@RequestParam Map<String, Object> paramMap) {
@@ -183,7 +179,7 @@ public class CommentController {
 	
 	// 댓글
     
-  //AJAX 호출 (댓글 등록)
+    //AJAX 호출 (댓글 등록)
     @ResponseBody
     @RequestMapping(value="/board/reply/save", method=RequestMethod.POST)
     public Object boardReplySave(@RequestParam Map<String, Object> paramMap) {
